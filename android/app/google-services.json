@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "161430098229",
+    "project_id": "career-navigator-ffb7c",
+    "storage_bucket": "career-navigator-ffb7c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:161430098229:android:fc66adfb3521522c37fc7c",
+        "android_client_info": {
+          "package_name": "com.example.careernavigator"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA32mX7ng8DiD5PkWRov3_NUqqY7U83noU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
