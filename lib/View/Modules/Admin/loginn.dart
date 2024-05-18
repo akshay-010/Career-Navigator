@@ -1,8 +1,11 @@
+import 'package:careernavigator/Controller/adminbackendservices.dart';
+import 'package:careernavigator/View/Modules/Admin/bottombar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:provider/provider.dart';
 
 class AdminLogin extends StatefulWidget {
   const AdminLogin({Key? key}) : super(key: key);
@@ -16,6 +19,9 @@ class _AdminLoginState extends State<AdminLogin> {
   var password = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    // AdminBackend adminBackend = AdminBackend();
+    final provider = Provider.of<AdminBackend>(context);
+
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -87,7 +93,7 @@ class _AdminLoginState extends State<AdminLogin> {
                               height: height*0.065,
 
                               child: TextFormField(
-                                controller: email,
+                                controller: provider.adminemailcontroller,
                                 keyboardType: TextInputType.text,
                                 decoration: InputDecoration(
                                     filled: true,
@@ -114,7 +120,7 @@ class _AdminLoginState extends State<AdminLogin> {
                               width: width * 0.5,
                               height: height*0.065,
                               child: TextFormField(
-                                controller: password,
+                                controller: provider.adminpasswordcontroller,
                                 keyboardType: TextInputType.text,
                                 decoration: InputDecoration(
                                     filled: true,
@@ -136,7 +142,9 @@ class _AdminLoginState extends State<AdminLogin> {
                         SizedBox(
                           width: width,
                           height: height*0.065,
-                          child: ElevatedButton(onPressed: (){},
+                          child: ElevatedButton(onPressed: (){
+                            provider.checkadminemail(context);
+                          },
                               style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(HexColor("#3568FF")),shape: MaterialStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)))),
                               child: Text("Login",style: TextStyle(fontFamily: GoogleFonts.inter().fontFamily,color: Colors.white,fontSize: 18),)),
                         )
@@ -145,21 +153,21 @@ class _AdminLoginState extends State<AdminLogin> {
                     SizedBox(height: height*0.022,),
                     Row(
                         children: <Widget>[
-                          Expanded(
+                          const Expanded(
                               child: Divider()
-                          ),SizedBox(width: 10,),
+                          ),const SizedBox(width: 10,),
 
                           Text("OR",style: TextStyle(fontFamily: GoogleFonts.inter().fontFamily,color: Colors.white,fontWeight: FontWeight.w600),),
 
-                          SizedBox(width: 10,),
-                          Expanded(
+                          const SizedBox(width: 10,),
+                          const Expanded(
                               child: Divider()
                           ),
                         ]
                     ),
                   ],
                 ),
-              ),SizedBox(width: 30,),
+              ),const SizedBox(width: 30,),
               Align(
                 alignment: Alignment.bottomCenter,
                 child: SizedBox(

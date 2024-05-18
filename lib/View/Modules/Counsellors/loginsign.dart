@@ -1,3 +1,4 @@
+import 'package:careernavigator/View/Modules/Counsellors/notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -345,7 +346,7 @@ class _LoginSignupState extends State<LoginSignup> with TickerProviderStateMixin
                                   onPressed: () {
                                     if (tabController.index == 0) {
 
-                                      // Navigator.push(context, MaterialPageRoute(builder: (context) => Courses_Page()));
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => Notificationss()));
                                     } else {
                                       // Navigator.push(context, MaterialPageRoute(builder: (context) => Home_Page()));
                                     }

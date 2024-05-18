@@ -1,4 +1,7 @@
 import 'package:careernavigator/Controller/Providers/userprovider.dart';
+import 'package:careernavigator/Controller/institutionbackend.dart';
+import 'package:careernavigator/View/Modules/Institutions/addinstitution.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -8,10 +11,32 @@ import 'package:tab_container/tab_container.dart';
 import '../Users/forgotpassword.dart';
 import '../Users/registration.dart';
 
-class LoginInstitution extends StatelessWidget {
+class LoginInstitution extends StatefulWidget {
   LoginInstitution({super.key});
 
+  @override
+  State<LoginInstitution> createState() => _LoginInstitutionState();
+}
+
+class _LoginInstitutionState extends State<LoginInstitution> with TickerProviderStateMixin{
+  late TabController tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    tabController = TabController(length: 2, vsync: this);
+  }
+
   var email = TextEditingController();
+
+  var password =TextEditingController();
+
+  var emailll = TextEditingController();
+
+  var passworddd = TextEditingController();
+
+  var passwordo = TextEditingController();
+
   var pass = false;
 
   @override
@@ -19,10 +44,10 @@ class LoginInstitution extends StatelessWidget {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
 
-    var _tabController;
+    // var _tabController;
 
     final provider = Provider.of<UserProvider>(context);
-
+    InstitutionBackend institutionBackend =InstitutionBackend();
     return Scaffold(
         body: Stack(
       children: [
@@ -162,7 +187,7 @@ class LoginInstitution extends StatelessWidget {
                               borderRadius: BorderRadius.circular(25),
                               color: Colors.grey),
                           child: TabContainer(
-                            controller: _tabController,
+                            controller: tabController,
                             tabEdge: TabEdge.top,
                             tabsStart: 0.2,
                             tabsEnd: 0.8,
@@ -224,7 +249,7 @@ class LoginInstitution extends StatelessWidget {
                                         height: 15,
                                       ),
                                       TextFormField(
-                                        controller: email,
+                                        controller: password,
                                         keyboardType: TextInputType.text,
                                         decoration: InputDecoration(
                                           contentPadding:
@@ -301,7 +326,7 @@ class LoginInstitution extends StatelessWidget {
                                         height: 15,
                                       ),
                                       TextFormField(
-                                        controller: email,
+                                        controller: emailll,
                                         keyboardType: TextInputType.text,
                                         decoration: InputDecoration(
                                           contentPadding:
@@ -326,7 +351,7 @@ class LoginInstitution extends StatelessWidget {
                                         height: 15,
                                       ),
                                       TextFormField(
-                                        controller: email,
+                                        controller: passworddd,
                                         keyboardType: TextInputType.text,
                                         decoration: InputDecoration(
                                           contentPadding:
@@ -350,7 +375,7 @@ class LoginInstitution extends StatelessWidget {
                                         height: 15,
                                       ),
                                       TextFormField(
-                                        controller: email,
+                                        controller: passwordo,
                                         keyboardType: TextInputType.text,
                                         decoration: InputDecoration(
                                           contentPadding:
@@ -385,7 +410,7 @@ class LoginInstitution extends StatelessWidget {
                     child: Container(
                       height: 70,
                       width: 70,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: Colors.white,
                         shape: BoxShape.circle,
                         boxShadow: <BoxShadow>[
@@ -409,13 +434,16 @@ class LoginInstitution extends StatelessWidget {
                             child: Center(
                               child: IconButton(
                                   onPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                Registration_Page()));
+                                    if (tabController.index == 0) {
+                                      institutionBackend.loginPage(email.text, password.toString(), context);
+                                      // Navigator.push(context, MaterialPageRoute(builder: (context) => Registration_Page()));
+                                    }  else{
+                                      institutionBackend.signUp(emailll.text, passworddd.toString(), context);
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => AddInstitutions()));
+
+                                    }
                                   },
-                                  icon: Icon(
+                                  icon: const Icon(
                                     Icons.arrow_forward,
                                     size: 30,
                                     color: Colors.white,

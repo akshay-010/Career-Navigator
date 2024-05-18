@@ -20,24 +20,26 @@ class _InstitutionsPageState extends State<InstitutionsPage> {
         backgroundColor: HexColor("#A527BC"),
         title: Text("Scholarship",style: GoogleFonts.poppins(color:Colors.white,fontWeight:FontWeight.w500,fontSize:22),),
       ),
-      body: ListView.builder(
-        itemCount: Institutions.length,
-        itemBuilder: (context,index){
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: InkWell(
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>Institutions[index]['page']));
-              },
-              child: ListTile(
-                leading: CircleAvatar(
-                  backgroundImage: AssetImage(Institutions[index]['image']),
+      body: SafeArea(
+        child: ListView.builder(
+          itemCount: Institutions.length,
+          itemBuilder: (context,index){
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: InkWell(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>Institutions[index]['page']));
+                },
+                child: ListTile(
+                  leading: CircleAvatar(
+                    backgroundImage: AssetImage(Institutions[index]['image']),
+                  ),
+                  title: Text(Institutions[index]['name']),
                 ),
-                title: Text(Institutions[index]['name']),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
 
     );

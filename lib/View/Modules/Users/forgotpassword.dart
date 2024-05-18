@@ -43,7 +43,7 @@ class _Forgot_PassState extends State<Forgot_Pass> {
                 height: height/2,width: width,
                 child: Column(children: [
                   Spacer(),
-                  Image.asset("assets/Ellipse 32.png")
+                  Image.asset("assets/Ellipse 32.png",scale: 0.9,)
                 ],)
               )
             ],
@@ -52,14 +52,14 @@ class _Forgot_PassState extends State<Forgot_Pass> {
             alignment: Alignment.center,
             child: Container(
               height: height/2,
-              width: width*0.6,
+              width: width*0.75,
               child: Stack(
                 children: [
                   Card(
                     elevation: 5,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                     child: Container(
-                      height: height*0.45,width: width*0.6,
+                      height: height*0.45,width: width*0.75,
                       decoration: BoxDecoration(color:  HexColor("#FFFCFC"),borderRadius: BorderRadius.circular(20)),
                       child: Padding(
                         padding: const EdgeInsets.all(20.0),
@@ -86,7 +86,7 @@ class _Forgot_PassState extends State<Forgot_Pass> {
                                 hintText: "Password",
                               ),
                             ),
-                            SizedBox(height: 15,),
+                            SizedBox(height: 20,),
                             TextFormField(
                               controller:pass ,
                               keyboardType: TextInputType.text,

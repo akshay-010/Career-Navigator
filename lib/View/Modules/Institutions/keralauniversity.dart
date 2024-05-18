@@ -1,19 +1,18 @@
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-import 'homelistcourses.dart';
+import '../Users/homelistcourses.dart';
 
-class KeralaUniversity extends StatefulWidget {
-  const KeralaUniversity({super.key}) ;
+class KeralaUniversityPage extends StatefulWidget {
+  const KeralaUniversityPage({super.key});
 
   @override
-  State<KeralaUniversity> createState() => _KeralaUniversityState();
+  State<KeralaUniversityPage> createState() => _KeralaUniversityPageState();
 }
 
-class _KeralaUniversityState extends State<KeralaUniversity> {
+class _KeralaUniversityPageState extends State<KeralaUniversityPage> {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -24,7 +23,7 @@ class _KeralaUniversityState extends State<KeralaUniversity> {
         appBar: AppBar(
           backgroundColor: HexColor("#A527BC"),
           title: Text(
-            "Institutions",
+            "Kerala University",
             style: GoogleFonts.poppins(
                 color: Colors.white, fontWeight: FontWeight.w500, fontSize: 22),
           ),
@@ -43,9 +42,7 @@ class _KeralaUniversityState extends State<KeralaUniversity> {
               SizedBox(
                 height: height * 0.077,
                 child: TabBar(
-                  indicator: const BubbleTabIndicator(
-                      indicatorColor: Colors.grey
-                  ),
+                  indicator: const BubbleTabIndicator(indicatorColor: Colors.grey),
                   indicatorSize: TabBarIndicatorSize.tab,
                   dividerHeight: 20,
                   labelColor: const Color.fromRGBO(111, 31, 40, 1),
@@ -161,7 +158,7 @@ class _KeralaUniversityState extends State<KeralaUniversity> {
                       mainAxisSpacing: 5,
                     ),
                     itemBuilder: (context, index) {
-                      return Container(
+                      return SizedBox(
                         height: height / 3.7,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
