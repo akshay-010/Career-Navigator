@@ -56,12 +56,29 @@ class AdminBackend extends ChangeNotifier  {
 
   File? get image => images;
 
-  Future<void> pickImage(ImageSource source) async {
+  Future<void> pickImageInstitution(ImageSource source) async {
     final pickedImage = await ImagePicker().pickImage(source: source);
     if (pickedImage != null) {
       images = File(pickedImage.path);
     } else {
       images = null;
+    }
+    notifyListeners();
+  }
+
+
+
+
+  File? imagess;
+
+  File? get imageso => imagess;
+
+  Future<void> pickImageCounsellor(ImageSource source) async {
+    final pickedImage = await ImagePicker().pickImage(source: source);
+    if (pickedImage != null) {
+      imagess = File(pickedImage.path);
+    } else {
+      imagess = null;
     }
     notifyListeners();
   }

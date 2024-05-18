@@ -16,8 +16,8 @@ class AddAdminInstitutions extends StatelessWidget {
     final provider = Provider.of<AdminBackend>(context);
 
     return
-       Scaffold(
-         body: Padding(
+
+          Padding(
            padding: const EdgeInsets.symmetric(horizontal: 40),
            child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -25,22 +25,35 @@ class AddAdminInstitutions extends StatelessWidget {
             children: [
               Align(
                   alignment: Alignment.center,
-                  child: Text("Add Institustions",style: TextStyle(color: Colors.white,fontSize: 22,fontWeight: FontWeight.w700,fontFamily: GoogleFonts.poppins().fontFamily),)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text("Add Institustions",style: TextStyle(color: Colors.white,fontSize: 22,fontWeight: FontWeight.w700,fontFamily: GoogleFonts.poppins().fontFamily),),
+                      SizedBox(
+                        width: 20,
+                      ),
+
+                      InkWell(
+                        onTap: (){provider.pickImageInstitution(ImageSource.gallery);},
+                        child:
+                        provider.image == null ?Column(
+                          children: [
+                            Icon(Icons.image,size: 25,),
+                          ],
+                        ):
+                        Container(
+                          height: 50,width: 50,
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black),
+                            borderRadius: BorderRadius.circular(10),
+                            image: DecorationImage(image:FileImage(provider.image!) )
+                          ),
+                        ),
+                      )
+                    ],
+                  )),
               const SizedBox(
                 height: 15,
-              ),
-              Row(
-                children: [
-                  TextButton(onPressed: (){
-                    provider.pickImage(ImageSource.gallery);
-                  }, child: Text("Add Image",style: TextStyle(color: Colors.black,fontSize: 15,fontWeight: FontWeight.w800,fontFamily: GoogleFonts.inter().fontFamily),)),
-         
-                  provider.image == null ?Icon(Icons.image):
-                  CircleAvatar(
-                    radius: 20,
-                    backgroundImage:(FileImage(provider.image!))
-                  )
-                ],
               ),
          
               Text(
@@ -52,7 +65,7 @@ class AddAdminInstitutions extends StatelessWidget {
                     fontFamily: GoogleFonts.poppins().fontFamily),
               ),
               const SizedBox(
-                height: 5,
+                height:  4,
               ),
               TextFormField(
                 keyboardType: TextInputType.text,
@@ -80,7 +93,7 @@ class AddAdminInstitutions extends StatelessWidget {
                     fontFamily: GoogleFonts.poppins().fontFamily),
               ),
               const SizedBox(
-                height: 5,
+                height:  4,
               ),
               TextFormField(
                 keyboardType: TextInputType.text,
@@ -109,7 +122,7 @@ class AddAdminInstitutions extends StatelessWidget {
                     fontFamily: GoogleFonts.poppins().fontFamily),
               ),
               const SizedBox(
-                height: 5,
+                height:  4,
               ),
               TextFormField(
                 keyboardType: TextInputType.text,
@@ -138,7 +151,7 @@ class AddAdminInstitutions extends StatelessWidget {
                     fontFamily: GoogleFonts.poppins().fontFamily),
               ),
               const SizedBox(
-                height: 5,
+                height:  4,
               ),
               TextFormField(
                 keyboardType: TextInputType.text,
@@ -167,7 +180,7 @@ class AddAdminInstitutions extends StatelessWidget {
                     fontFamily: GoogleFonts.poppins().fontFamily),
               ),
               const SizedBox(
-                height: 5,
+                height:  4,
               ),
               TextFormField(
                 keyboardType: TextInputType.text,
@@ -196,7 +209,7 @@ class AddAdminInstitutions extends StatelessWidget {
                     fontFamily: GoogleFonts.poppins().fontFamily),
               ),
               const SizedBox(
-                height: 5,
+                height: 4,
               ),
               TextFormField(
                 keyboardType: TextInputType.text,
@@ -237,8 +250,8 @@ class AddAdminInstitutions extends StatelessWidget {
               )
             ],
                  ),
-         ),
-       );
+         );
+
 
   }
 }

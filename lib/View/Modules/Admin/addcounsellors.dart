@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
+
+import '../../../Controller/adminbackendservices.dart';
 class AddCounsellorsAdmin extends StatefulWidget {
   const AddCounsellorsAdmin({super.key});
 
@@ -13,6 +17,8 @@ class _AddCounsellorsAdminState extends State<AddCounsellorsAdmin> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
+    final provider = Provider.of<AdminBackend>(context);
+
     return
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 40),
@@ -22,8 +28,34 @@ class _AddCounsellorsAdminState extends State<AddCounsellorsAdmin> {
           children: [
             Align(
                 alignment: Alignment.center,
-                child: Text("Add consellors",style: TextStyle(color: Colors.white,fontSize: 22,fontWeight: FontWeight.w700,fontFamily: GoogleFonts.poppins().fontFamily),)),
-            const SizedBox(
+                child:  Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("Add Institustions",style: TextStyle(color: Colors.white,fontSize: 22,fontWeight: FontWeight.w700,fontFamily: GoogleFonts.poppins().fontFamily),),
+                    SizedBox(
+                      width: 20,
+                    ),
+
+                    InkWell(
+                      onTap: (){provider.pickImageCounsellor(ImageSource.gallery);},
+                      child:
+                      provider.imageso == null ?Column(
+                        children: [
+                          Icon(Icons.image,size: 25,),
+                        ],
+                      ):
+                      Container(
+                        height: 50,width: 50,
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black),
+                            borderRadius: BorderRadius.circular(10),
+                            image: DecorationImage(image:FileImage(provider.imageso!) )
+                        ),
+                      ),
+                    )
+                  ],
+                ),),
+             SizedBox(
               height: 15,
             ),
             Text(
