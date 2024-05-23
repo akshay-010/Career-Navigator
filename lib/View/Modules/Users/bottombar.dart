@@ -13,9 +13,9 @@ class BottomBar extends StatelessWidget {
       items: [
 
       BottomNavigationBarItem(icon: Icon(Icons.home),label: "",backgroundColor: HexColor("#A527BC"),),
-      BottomNavigationBarItem(icon: Icon(Icons.chat),label: ""),
-      BottomNavigationBarItem(icon: Icon(Icons.collections_bookmark_sharp),label: ""),
-      BottomNavigationBarItem(icon: Icon(Icons.person),label: ""),
+      BottomNavigationBarItem(icon: Icon(Icons.chat),label: "",backgroundColor: HexColor("#A527BC"),),
+      BottomNavigationBarItem(icon: Icon(Icons.collections_bookmark_sharp),label: "",backgroundColor: HexColor("#A527BC"),),
+      BottomNavigationBarItem(icon: Icon(Icons.person),label: "",backgroundColor: HexColor("#A527BC"),),
 
     ],showSelectedLabels: false,
     currentIndex: provider.indexNum,

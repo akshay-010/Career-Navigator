@@ -49,6 +49,7 @@ dependencies:
   firebase_storage: ^11.7.3
   another_flushbar: ^1.12.30
   image_picker: ^1.0.7
+  flutter_secure_storage: ^9.2.1
 
 
 dev_dependencies:

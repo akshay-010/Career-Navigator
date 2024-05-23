@@ -1,4 +1,3 @@
-import 'package:careernavigator/Controller/Providers/institutionprovider.dart';
 import 'package:careernavigator/Controller/Providers/userprovider.dart';
 import 'package:careernavigator/Controller/adminbackendservices.dart';
 import 'package:careernavigator/Controller/institutionbackend.dart';
@@ -14,6 +13,7 @@ import 'package:careernavigator/View/Modules/Institutions/addcourse.dart';
 import 'package:careernavigator/View/Modules/Institutions/addfaculty.dart';
 import 'package:careernavigator/View/Modules/Institutions/addinstitution.dart';
 import 'package:careernavigator/View/Modules/Institutions/addplacement.dart';
+import 'package:careernavigator/View/Modules/Institutions/Deleted/institutionfirstpage.dart';
 import 'package:careernavigator/View/Modules/Institutions/splashinstitut.dart';
 import 'package:careernavigator/View/Modules/Institutions/university.dart';
 import 'package:careernavigator/View/Modules/Users/counsellors.dart';
@@ -34,10 +34,13 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'Controller/Providers/counsellorbackendservice.dart';
+import 'Controller/backendservices.dart';
 import 'View/Modules/Admin/loginn.dart';
 import 'View/Modules/Counsellors/loginsign.dart';
 import 'View/Modules/Counsellors/splashh.dart';
 import 'View/Modules/Institutions/keralauniversity.dart';
+import 'View/Modules/Institutions/logininstitut.dart';
 import 'firebase_options.dart';
 
 void main() async{
@@ -56,9 +59,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (context) => BackendServices(),),
         ChangeNotifierProvider(create: (context) => UserProvider(),),
-        ChangeNotifierProvider(create: (context) => InstitutionBackend(),),
+        ChangeNotifierProvider(create: (context) => CounsellorService(),),
+        // ChangeNotifierProvider(create: (context) => InstitutionBackend(),),
         ChangeNotifierProvider(create: (context) => AdminBackend(),),
+        // ChangeNotifierProvider(create: (context) => PlacementFormProvider(),),
 
       ],
       child: MaterialApp(
@@ -67,7 +73,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: AdminLogin(),
+        home: UserSplashScreen(),
         debugShowCheckedModeBanner: false,
       ),
     );

@@ -56,9 +56,9 @@ class _Login_PageState extends State<Login_Page> with TickerProviderStateMixin {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SizedBox(height: 50,),
+                    const SizedBox(height: 50,),
                     Text("Welcome",style: GoogleFonts.poppins(color:HexColor("#FFFCFC"),fontSize:28,fontWeight:FontWeight.w400),),
-                    SizedBox(height: 20,),
+                    const SizedBox(height: 20,),
                     Text('Sign Up to Continue',style: GoogleFonts.kreon(color:Colors.white,fontSize:15),)
                   ],
                 ),
@@ -70,9 +70,9 @@ class _Login_PageState extends State<Login_Page> with TickerProviderStateMixin {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Spacer(),
+                      const Spacer(),
                     Text("Or Signin With",style: GoogleFonts.poppins(color:Colors.black,fontSize:16,fontWeight:FontWeight.w400),),
-                    SizedBox(height: 15,),
+                    const SizedBox(height: 15,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -104,7 +104,7 @@ class _Login_PageState extends State<Login_Page> with TickerProviderStateMixin {
                         ),
                       ],
                     ),
-                      SizedBox(height: 60,)
+                      const SizedBox(height: 60,)
 
                   ],),
                 )
@@ -148,7 +148,7 @@ class _Login_PageState extends State<Login_Page> with TickerProviderStateMixin {
                                     color: HexColor("#666666"),
                                     fontSize: 13.0,
                                   ),
-                                  colors: [
+                                  colors: const [
                                    Colors.white,
                                    Colors.white
                                   ],
@@ -161,43 +161,43 @@ class _Login_PageState extends State<Login_Page> with TickerProviderStateMixin {
                                       child: Padding(
                                         padding: const EdgeInsets.all(20),
                                         child: Column(children: [
-                                          SizedBox(height: 15,),
+                                          const SizedBox(height: 15,),
                                           TextFormField(
                                             controller:email ,
                                             keyboardType: TextInputType.text,
                                             decoration: InputDecoration(
-                                              contentPadding: EdgeInsets.symmetric(vertical: 5),
+                                              contentPadding: const EdgeInsets.symmetric(vertical: 5),
                                               enabledBorder: OutlineInputBorder(
                                                 borderRadius: BorderRadius.circular(15),
-                                                borderSide: BorderSide(color: Colors.black),
+                                                borderSide: const BorderSide(color: Colors.black),
                                               ),
                                               focusedBorder: OutlineInputBorder(
                                                 borderRadius: BorderRadius.circular(15),
-                                                borderSide: BorderSide(color: Colors.green)
+                                                borderSide: const BorderSide(color: Colors.green)
                                               ),
-                                              prefixIcon: Icon(Icons.email_outlined),
+                                              prefixIcon: const Icon(Icons.email_outlined),
                                               hintText: "E-mail",
                                             ),
                                           ),
-                                          SizedBox(height: 15,),
+                                          const SizedBox(height: 15,),
                                           TextFormField(
                                             controller:pass ,
                                             keyboardType: TextInputType.text,
                                             decoration: InputDecoration(
-                                              contentPadding: EdgeInsets.symmetric(vertical: 5),
+                                              contentPadding: const EdgeInsets.symmetric(vertical: 5),
                                               enabledBorder: OutlineInputBorder(
                                                 borderRadius: BorderRadius.circular(15),
-                                                borderSide: BorderSide(color: Colors.black),
+                                                borderSide: const BorderSide(color: Colors.black),
                                               ),
                                               focusedBorder: OutlineInputBorder(
                                                   borderRadius: BorderRadius.circular(15),
-                                                  borderSide: BorderSide(color: Colors.green)
+                                                  borderSide: const BorderSide(color: Colors.green)
                                               ),
-                                              prefixIcon: Icon(Icons.lock_outline),
+                                              prefixIcon: const Icon(Icons.lock_outline),
                                               hintText: "Password",
                                             ),
                                           ),
-                                          SizedBox(height: 2,),
+                                          const SizedBox(height: 2,),
                                           Row(
                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
@@ -227,57 +227,57 @@ class _Login_PageState extends State<Login_Page> with TickerProviderStateMixin {
                                       child: Padding(
                                         padding: const EdgeInsets.all(20),
                                         child: Column(children: [
-                                          SizedBox(height: 15,),
+                                          const SizedBox(height: 15,),
                                           TextFormField(
                                             controller:emailll ,
                                             keyboardType: TextInputType.text,
                                             decoration: InputDecoration(
-                                              contentPadding: EdgeInsets.symmetric(vertical: 5),
+                                              contentPadding: const EdgeInsets.symmetric(vertical: 5),
                                               enabledBorder: OutlineInputBorder(
                                                 borderRadius: BorderRadius.circular(15),
                                                 borderSide: BorderSide(color: Colors.black),
                                               ),
                                               focusedBorder: OutlineInputBorder(
                                                   borderRadius: BorderRadius.circular(15),
-                                                  borderSide: BorderSide(color: Colors.green)
+                                                  borderSide: const BorderSide(color: Colors.green)
                                               ),
-                                              prefixIcon: Icon(Icons.email_outlined),
+                                              prefixIcon: const Icon(Icons.email_outlined),
                                               hintText: "E-mail",
                                             ),
                                           ),
-                                          SizedBox(height: 15,),
+                                          const SizedBox(height: 15,),
                                           TextFormField(
                                             controller:password ,
                                             keyboardType: TextInputType.text,
                                             decoration: InputDecoration(
-                                              contentPadding: EdgeInsets.symmetric(vertical: 5),
+                                              contentPadding: const EdgeInsets.symmetric(vertical: 5),
                                               enabledBorder: OutlineInputBorder(
                                                 borderRadius: BorderRadius.circular(15),
-                                                borderSide: BorderSide(color: Colors.black),
+                                                borderSide: const BorderSide(color: Colors.black),
                                               ),
                                               focusedBorder: OutlineInputBorder(
                                                   borderRadius: BorderRadius.circular(15),
-                                                  borderSide: BorderSide(color: Colors.green)
+                                                  borderSide: const BorderSide(color: Colors.green)
                                               ),
-                                              prefixIcon: Icon(Icons.lock_outline),
+                                              prefixIcon: const Icon(Icons.lock_outline),
                                               hintText: "Password",
                                             ),
                                           ),
-                                          SizedBox(height: 15,),
+                                          const SizedBox(height: 15,),
                                           TextFormField(
                                             controller:cnfmpassword ,
                                             keyboardType: TextInputType.text,
                                             decoration: InputDecoration(
-                                              contentPadding: EdgeInsets.symmetric(vertical: 5),
+                                              contentPadding: const EdgeInsets.symmetric(vertical: 5),
                                               enabledBorder: OutlineInputBorder(
                                                 borderRadius: BorderRadius.circular(15),
-                                                borderSide: BorderSide(color: Colors.black),
+                                                borderSide: const BorderSide(color: Colors.black),
                                               ),
                                               focusedBorder: OutlineInputBorder(
                                                   borderRadius: BorderRadius.circular(15),
-                                                  borderSide: BorderSide(color: Colors.green)
+                                                  borderSide: const BorderSide(color: Colors.green)
                                               ),
-                                              prefixIcon: Icon(Icons.lock_outline),
+                                              prefixIcon: const Icon(Icons.lock_outline),
                                               hintText: "confirm password",
                                             ),
                                           ),
@@ -294,7 +294,7 @@ class _Login_PageState extends State<Login_Page> with TickerProviderStateMixin {
                           alignment: Alignment.bottomCenter,
                           child: Container(
                             height: 70,width: 70,
-                            decoration: BoxDecoration(color: Colors.white,shape: BoxShape.circle,boxShadow: <BoxShadow>[
+                            decoration: const BoxDecoration(color: Colors.white,shape: BoxShape.circle,boxShadow: <BoxShadow>[
                               BoxShadow(
                                 color: Colors.black54,
                                 blurRadius: 10,
@@ -311,15 +311,14 @@ class _Login_PageState extends State<Login_Page> with TickerProviderStateMixin {
                                   child: Center(child: IconButton(
                                       onPressed: () {
                                         if (tabController.index == 0) {
-                                          backendServices.login(email.text, pass.toString(), context);
-                                          // Navigator.push(context, MaterialPageRoute(builder: (context) => Registration_Page()));
+                                          backendServices.login(email.text, pass.text, context).then((value) => Navigator.push(context, MaterialPageRoute(builder: (context)=>BottomBar())));
                                         }  else{
-                                          backendServices.signUp(emailll.text, password.toString(), context);
-                                          Navigator.push(context, MaterialPageRoute(builder: (context) => BottomBar()));
+                                          backendServices.signUp(emailll.text, password.text, context)
+                                          .then((value) =>   Navigator.push(context, MaterialPageRoute(builder: (context)=>Registration_Page())));
 
                                         }
                                       },
-                                      icon:Icon( Icons.arrow_forward,size: 30,color: Colors.white,)),),
+                                      icon:const Icon( Icons.arrow_forward,size: 30,color: Colors.white,)),),
                                 ),
 
                               ),

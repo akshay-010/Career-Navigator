@@ -3,14 +3,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import 'loginpage.dart';
-class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
+class UserSplashScreen extends StatefulWidget {
+  const UserSplashScreen({super.key});
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  State<UserSplashScreen> createState() => _UserSplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _UserSplashScreenState extends State<UserSplashScreen> {
   @override
   Widget build(BuildContext context) {
     Future.delayed(Duration(seconds: 7),(){

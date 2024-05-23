@@ -1,81 +1,46 @@
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:provider/provider.dart';
 
-import '../../../Model/adminmodel.dart';
-import 'homelistcourses.dart';
 
-class KeralaUniversity extends StatefulWidget {
-   KeralaUniversity({super.key,required this.institution}) ;
-  final AdminAddInstitution institution;
+class AllCourses extends StatefulWidget {
+  const AllCourses({super.key}) ;
 
   @override
-  State<KeralaUniversity> createState() => _KeralaUniversityState();
+  State<AllCourses> createState() => _AllCoursesState();
 }
 
-class _KeralaUniversityState extends State<KeralaUniversity> {
-
-
-
-  Future<List<Map<String, dynamic>>> _fetchFaculty() async {
-    final snapshot = await FirebaseFirestore.instance
-        .collection('Admin')
-        .doc('ADMIN')
-        .collection('institutionadd')
-        .doc(widget.institution.userId)
-        .collection('faculty')
-        .get();
-
-    return snapshot.docs.map((doc) => doc.data()).toList();
-  }
-
-
-
-  Future<List<Map<String, dynamic>>> _fetchFPlacement() async {
-    final snapshot = await FirebaseFirestore.instance
-        .collection('Admin')
-        .doc('ADMIN')
-        .collection('institutionadd')
-        .doc(widget.institution.userId)
-        .collection('placements')
-        .get();
-
-    return snapshot.docs.map((doc) => doc.data()).toList();
-  }
-
-
-
-  Future<List<Map<String, dynamic>>> _fetchCourse() async {
-    final snapshot = await FirebaseFirestore.instance
-        .collection('Admin')
-        .doc('ADMIN')
-        .collection('institutionadd')
-        .doc(widget.institution.userId)
-        .collection('courses')
-        .get();
-
-    return snapshot.docs.map((doc) => doc.data()).toList();
-  }
-
-
-
-
+class _AllCoursesState extends State<AllCourses> {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
+
+    final User? user = FirebaseAuth.instance.currentUser;
+
+    if (user == null) {
+      return Scaffold(
+        body: Center(
+          child: Text('No user logged in'),
+        ),
+      );
+    }
+
+    final String ownerId = user.uid;
+
+
+
     return DefaultTabController(
       length: 3,
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: HexColor("#A527BC"),
           title: Text(
-            widget.institution.institutionname,
+            "Institutions",
             style: GoogleFonts.poppins(
                 color: Colors.white, fontWeight: FontWeight.w500, fontSize: 22),
           ),
@@ -86,10 +51,10 @@ class _KeralaUniversityState extends State<KeralaUniversity> {
               Container(
                 height: height * 0.22,
                 width: width,
-                decoration:  BoxDecoration(
+                decoration: const BoxDecoration(
                     image: DecorationImage(
                         fit: BoxFit.cover,
-                        image: NetworkImage(widget.institution.imageUrl))),
+                        image: AssetImage("assets/Rectangle 102.png"))),
               ),
               SizedBox(
                 height: height * 0.077,
@@ -136,8 +101,15 @@ class _KeralaUniversityState extends State<KeralaUniversity> {
               ),
               Expanded(
                 child: TabBarView(children: [
-                  FutureBuilder<List<Map<String, dynamic>>>(
-                    future: _fetchCourse(),
+                  StreamBuilder<QuerySnapshot>(
+                    stream:  FirebaseFirestore.instance
+                    .collection('Admin')
+                    .doc('ADMIN')
+                    .collection("institutionadd")
+                    .doc(ownerId)
+                    .collection("courses")
+                    .orderBy('created_at', descending: true)
+                    .snapshots(),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return Center(child: CircularProgressIndicator());
@@ -145,21 +117,28 @@ class _KeralaUniversityState extends State<KeralaUniversity> {
                       if (snapshot.hasError) {
                         return Center(child: Text('Error: ${snapshot.error}'));
                       }
-                      final courses = snapshot.data ?? [];
+                      if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                        return Center(child: Text('No courses found.'));
+                      }
+
+                      final courses = snapshot.data!.docs;
+
                       return ListView.builder(
-                        itemCount: courses.length,
+                        itemCount:courses.length,
                         itemBuilder: (context, index) {
-                          final course = courses[index];
+                          final course = courses[index].data() as Map<String, dynamic>;
+
                           return Padding(
-                            padding:  EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.all(8.0),
                             child: ListTile(
                               leading: CircleAvatar(
-                                  radius: 25,
-                                  backgroundImage: NetworkImage(course['imageUrl'])),
+                                radius: 30,
+                                backgroundImage: NetworkImage(course['imageUrl'],),
+                              ),
                               title: Padding(
-                                padding: const EdgeInsets.only(left: 5),
+                                padding: const EdgeInsets.only(left: 7),
                                 child: Text(
-                                  course['courseName'],
+                                course['courseName'],
                                   style: GoogleFonts.poppins(
                                       color: Colors.black,
                                       fontSize: 18,
@@ -172,20 +151,31 @@ class _KeralaUniversityState extends State<KeralaUniversity> {
                       );
                     }
                   ),
-                  FutureBuilder<List<Map<String, dynamic>>>(
-                      future: _fetchFPlacement(),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Center(child: CircularProgressIndicator());
-                      }
-                      if (snapshot.hasError) {
-                        return Center(child: Text('Error: ${snapshot.error}'));
-                      }
-                      final placement = snapshot.data ?? [];
+                  StreamBuilder<QuerySnapshot>(
+                      stream:  FirebaseFirestore.instance
+                          .collection('Admin')
+                          .doc('ADMIN')
+                          .collection("institutionadd")
+                          .doc(ownerId)
+                          .collection("placements")
+                          .orderBy('created_at', descending: true)
+                          .snapshots(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return Center(child: CircularProgressIndicator());
+                        }
+                        if (snapshot.hasError) {
+                          return Center(child: Text('Error: ${snapshot.error}'));
+                        }
+                        if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                          return Center(child: Text('No courses found.'));
+                        }
+
+                        final placements = snapshot.data!.docs;
                       return Padding(
                         padding: const EdgeInsets.only(left: 9,right: 9),
                         child: GridView.builder(
-                          itemCount: placement.length,
+                          itemCount: placements.length,
                           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 4,
                             childAspectRatio: 0.54,
@@ -193,7 +183,7 @@ class _KeralaUniversityState extends State<KeralaUniversity> {
                             mainAxisSpacing: 5,
                           ),
                           itemBuilder: (context, index) {
-                            final placements = placement[index];
+                            final placement = placements[index].data() as Map<String, dynamic>;
                             return SizedBox(
                               height: height / 3.7,
                               child: Column(
@@ -204,7 +194,8 @@ class _KeralaUniversityState extends State<KeralaUniversity> {
                                     decoration: BoxDecoration(
                                       image:  DecorationImage(
                                         fit: BoxFit.cover,
-                                        image: NetworkImage(placements['imageUrl']),
+                                        image: NetworkImage(
+                                            placement['imageUrl']),
                                       ),
                                       border: Border.all(
                                           color: Colors.black,
@@ -213,7 +204,7 @@ class _KeralaUniversityState extends State<KeralaUniversity> {
                                     ),
                                   ),
                                   Text(
-                                    placements['studentName'],
+                                    placement['studentName'],
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
                                         color: Colors.black,
@@ -222,7 +213,7 @@ class _KeralaUniversityState extends State<KeralaUniversity> {
                                         fontSize: 13),
                                   ),
                                    Text(
-                                    placements['course'],
+                                    placement['course'],
                                     overflow: TextOverflow.ellipsis,
                                   )
                                 ],
@@ -233,20 +224,31 @@ class _KeralaUniversityState extends State<KeralaUniversity> {
                       );
                     }
                   ),
-                  FutureBuilder<List<Map<String, dynamic>>>(
-                    future: _fetchFaculty(),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Center(child: CircularProgressIndicator());
-                      }
-                      if (snapshot.hasError) {
-                        return Center(child: Text('Error: ${snapshot.error}'));
-                      }
-                      final faculties = snapshot.data ?? [];
+                  StreamBuilder<QuerySnapshot>(
+                      stream:  FirebaseFirestore.instance
+                          .collection('Admin')
+                          .doc('ADMIN')
+                          .collection("institutionadd")
+                          .doc(ownerId)
+                          .collection("faculty")
+                          .orderBy('created_at', descending: true)
+                          .snapshots(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return Center(child: CircularProgressIndicator());
+                        }
+                        if (snapshot.hasError) {
+                          return Center(child: Text('Error: ${snapshot.error}'));
+                        }
+                        if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                          return Center(child: Text('No courses found.'));
+                        }
+
+                        final faculty = snapshot.data!.docs;
                       return Padding(
                         padding: const EdgeInsets.only(left: 9,right: 9),
                         child: GridView.builder(
-                          itemCount: faculties.length,
+                          itemCount: faculty.length,
                           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 4,
                             childAspectRatio: 0.54,
@@ -254,7 +256,7 @@ class _KeralaUniversityState extends State<KeralaUniversity> {
                             mainAxisSpacing: 5,
                           ),
                           itemBuilder: (context, index) {
-                            final faculty = faculties[index];
+                            final faculties = faculty[index].data() as Map<String, dynamic>;
                             return Container(
                               height: height / 3.7,
                               child: Column(
@@ -271,12 +273,12 @@ class _KeralaUniversityState extends State<KeralaUniversity> {
                                       image:  DecorationImage(
                                         fit: BoxFit.cover,
                                         image: NetworkImage(
-                                           faculty['imageUrl']),
+                                          faculties['imageUrl']),
                                       ),
                                     ),
                                   ),
                                   Text(
-                                    faculty['teacherName'],
+                                    faculties['teacherName'],
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
                                         color: Colors.black,
@@ -285,7 +287,7 @@ class _KeralaUniversityState extends State<KeralaUniversity> {
                                         fontSize: 13),
                                   ),
                                    Text(
-                                    faculty['course'],
+                                    faculties['course'],
                                     overflow: TextOverflow.ellipsis,
                                   )
                                 ],

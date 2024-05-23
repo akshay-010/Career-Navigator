@@ -6,8 +6,10 @@ class Reporting extends StatelessWidget {
   Reporting({super.key});
 
   @override
-  var reports = TextEditingController();
+
+
   Widget build(BuildContext context) {
+    var reports = TextEditingController();
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -39,6 +41,7 @@ class Reporting extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(30),
                 child: TextFormField(
+                  controller: reports,
                   maxLines: 10,
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(

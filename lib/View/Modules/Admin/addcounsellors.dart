@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:image_picker/image_picker.dart';
@@ -31,7 +33,16 @@ class _AddCounsellorsAdminState extends State<AddCounsellorsAdmin> {
                 child:  Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Add Institustions",style: TextStyle(color: Colors.white,fontSize: 22,fontWeight: FontWeight.w700,fontFamily: GoogleFonts.poppins().fontFamily),),
+                    Container(
+                        height: 50,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(color: Colors.black)
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Text("Add Counsellor",style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.w700,fontFamily: GoogleFonts.poppins().fontFamily),),
+                        )),
                     SizedBox(
                       width: 20,
                     ),
@@ -39,17 +50,17 @@ class _AddCounsellorsAdminState extends State<AddCounsellorsAdmin> {
                     InkWell(
                       onTap: (){provider.pickImageCounsellor(ImageSource.gallery);},
                       child:
-                      provider.imageso == null ?Column(
-                        children: [
-                          Icon(Icons.image,size: 25,),
-                        ],
-                      ):
+                      provider.imagess == null && provider.webImagess == null ?Icon(Icons.image,size: 55,):
                       Container(
                         height: 50,width: 50,
                         decoration: BoxDecoration(
                             border: Border.all(color: Colors.black),
                             borderRadius: BorderRadius.circular(10),
-                            image: DecorationImage(image:FileImage(provider.imageso!) )
+                            image: DecorationImage(
+                              image:  provider.webImagess != null? MemoryImage(provider.webImagess!) : FileImage(provider.imagess!) as ImageProvider,
+                              fit: BoxFit.cover
+                              // image:FileImage(provider.imageso!)
+                            )
                         ),
                       ),
                     )
@@ -70,6 +81,7 @@ class _AddCounsellorsAdminState extends State<AddCounsellorsAdmin> {
               height: 5,
             ),
             TextFormField(
+              controller: provider.counsellornameController,
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
                   fillColor: Colors.white,
@@ -98,6 +110,7 @@ class _AddCounsellorsAdminState extends State<AddCounsellorsAdmin> {
               height: 5,
             ),
             TextFormField(
+              controller: provider.phonenumController,
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
                   fillColor: Colors.white,
@@ -127,6 +140,7 @@ class _AddCounsellorsAdminState extends State<AddCounsellorsAdmin> {
               height: 5,
             ),
             TextFormField(
+              controller: provider.emailllController,
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
                   fillColor: Colors.white,
@@ -156,6 +170,7 @@ class _AddCounsellorsAdminState extends State<AddCounsellorsAdmin> {
               height: 5,
             ),
             TextFormField(
+              controller: provider.ageeeController,
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
                   fillColor: Colors.white,
@@ -185,6 +200,7 @@ class _AddCounsellorsAdminState extends State<AddCounsellorsAdmin> {
               height: 5,
             ),
             TextFormField(
+              controller: provider.locationsController,
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
                   fillColor: Colors.white,
@@ -214,6 +230,7 @@ class _AddCounsellorsAdminState extends State<AddCounsellorsAdmin> {
               height: 5,
             ),
             TextFormField(
+              controller: provider.passworddController,
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
                   fillColor: Colors.white,
@@ -236,9 +253,100 @@ class _AddCounsellorsAdminState extends State<AddCounsellorsAdmin> {
                       shape: MaterialStatePropertyAll(RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(6))),
                       minimumSize: const MaterialStatePropertyAll(Size(0, 50)),
-                      backgroundColor:
-                      MaterialStatePropertyAll(HexColor("#3568FF"))),
-                  onPressed: () {},
+                      backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                            (Set<MaterialState> states) {
+                          if (states.contains(MaterialState.pressed)) {
+                            return Colors.red;
+                          }
+                          return HexColor("#3568FF");
+                        },)),
+
+
+                    onPressed: () async {
+                      // Validate if all fields are filled
+                      if (provider.counsellornameController.text.isEmpty ||
+                          provider.phonenumController.text.isEmpty ||
+                          provider.emailllController.text.isEmpty ||
+                          provider.ageeeController.text.isEmpty ||
+                          provider.locationsController.text.isEmpty ||
+                          provider.passworddController.text.isEmpty ||
+                          (provider.imagess == null && provider.webImagess == null)) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('Please fill in all fields and select an image')),
+                        );
+                        return;
+                      }
+
+                      try {
+                        // Upload the image
+                        String imageUrl = await provider.storeImageToCounsellor(
+                          'counsellorimages/${provider.counsellornameController.text}',
+                        );
+
+                        // Add the institution
+
+
+                        // Clear institution-related text fields after successful addition
+
+
+                        // Show success message for institution addition
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('Institution successfully added')),
+                        );
+
+                        // Attempt to create a new user with the provided email and password
+                        await FirebaseAuth.instance
+                            .createUserWithEmailAndPassword(
+                          email: provider.emailllController.text,
+                          password: provider.passworddController.text,
+                        ).then((value) {
+                          provider.addCounsellor(
+                              provider.counsellornameController.text,
+                              provider.phonenumController.text,
+                              provider.emailllController.text,
+                              provider.ageeeController.text,
+                              provider.locationsController.text,
+                              provider.passworddController.text,
+                              imageUrl,
+                              value.user!.uid
+                          );
+                        });
+
+                        // Clear email and password fields after successful user creation
+                        provider.counsellornameController.clear();
+                    provider.phonenumController.clear();
+                    provider.emailllController.clear();
+                    provider.ageeeController.clear();
+                    provider.locationsController.clear();
+                    provider.passworddController.clear();
+
+
+                        // Show success message for user creation
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('User created successfully')),
+                        );
+                      } catch (e) {
+                        // Handle any errors that occur during user creation
+                        print('Error creating user: $e');
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text('Error creating user: $e')));
+
+                        // Store the email and password securely for later use
+                        final storage = FlutterSecureStorage();
+                        await storage.write(
+                            key: 'counsellor_owner_email',
+                            value: provider.emailllController.text);
+                        await storage.write(
+                            key: 'icounsellor_owner_password',
+                            value: provider.passworddController.text);
+
+                        // Clear text fields after storing the email and password
+                        provider.emailllController.clear();
+                        provider.passworddController.clear();
+                      }
+                    },
+
+
                   child: const Center(
                     child: Text(
                       "Register",

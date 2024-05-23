@@ -13,7 +13,7 @@ class _CounsSplashScreenState extends State<CounsSplashScreen> {
   @override
   Widget build(BuildContext context) {
     Future.delayed(Duration(seconds: 7),(){
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>LoginSignup()));});
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>CounsellorLogin()));});
     return Scaffold(
       body:  Container(
         height: double.infinity,

@@ -71,42 +71,42 @@ List<Map<String, dynamic>> popularcourses = [
   },
 ];
 
-
-List<Map<String,dynamic>>Institutions=[
-  {
-    'image' : "assets/Ellipse 58 (1).png",
-    'name' : "Kerala University Thiruvananthapuram",
-    'page':KeralaUniversity(),
-  },
-  {
-    'image' : "assets/Ellipse 58 (2).png",
-    'name' : "MG University Kottayam"
-  },
-  {
-    'image' : "assets/Ellipse 58 (2).png",
-    'name' : "NIT Calicut Kozhikode"
-  },
-  {
-    'image' : "assets/Ellipse 58 (2).png",
-    'name' : "CUSAT Ernakulam"
-  },
-  {
-    'image' : "assets/Ellipse 58 (2).png",
-    'name' : "Calicut University Malappuram"
-  },
-  {
-    'image' : "assets/Ellipse 58 (2).png",
-    'name' : "Rajagiri College of Social Sciences Ernakulam"
-  },
-  {
-    'image' : "assets/Ellipse 58 (2).png",
-    'name' : "Maharaja’s College  Ernakulam"
-  },
-  {
-    'image' : "assets/Ellipse 58 (2).png",
-    'name' : "St. Joseph’s College Kozhikode"
-  },
-];
+//
+// List<Map<String,dynamic>>Institutions=[
+//   {
+//     'image' : "assets/Ellipse 58 (1).png",
+//     'name' : "Kerala University Thiruvananthapuram",
+//     'page':KeralaUniversity(),
+//   },
+//   {
+//     'image' : "assets/Ellipse 58 (2).png",
+//     'name' : "MG University Kottayam"
+//   },
+//   {
+//     'image' : "assets/Ellipse 58 (2).png",
+//     'name' : "NIT Calicut Kozhikode"
+//   },
+//   {
+//     'image' : "assets/Ellipse 58 (2).png",
+//     'name' : "CUSAT Ernakulam"
+//   },
+//   {
+//     'image' : "assets/Ellipse 58 (2).png",
+//     'name' : "Calicut University Malappuram"
+//   },
+//   {
+//     'image' : "assets/Ellipse 58 (2).png",
+//     'name' : "Rajagiri College of Social Sciences Ernakulam"
+//   },
+//   {
+//     'image' : "assets/Ellipse 58 (2).png",
+//     'name' : "Maharaja’s College  Ernakulam"
+//   },
+//   {
+//     'image' : "assets/Ellipse 58 (2).png",
+//     'name' : "St. Joseph’s College Kozhikode"
+//   },
+// ];
 
 
 List<Map<String,dynamic>> counsellorss=[

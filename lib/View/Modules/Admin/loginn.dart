@@ -145,7 +145,14 @@ class _AdminLoginState extends State<AdminLogin> {
                           child: ElevatedButton(onPressed: (){
                             provider.checkadminemail(context);
                           },
-                              style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(HexColor("#3568FF")),shape: MaterialStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)))),
+                              style: ButtonStyle( backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                                    (Set<MaterialState> states) {
+                                  if (states.contains(MaterialState.pressed)) {
+                                    return Colors.red;
+                                  }
+                                  return HexColor("#3568FF");
+                                },),
+                                  shape: MaterialStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)))),
                               child: Text("Login",style: TextStyle(fontFamily: GoogleFonts.inter().fontFamily,color: Colors.white,fontSize: 18),)),
                         )
                       ],

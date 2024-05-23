@@ -1,3 +1,4 @@
+import 'package:careernavigator/View/Modules/Institutions/Deleted/institutionfirstpage.dart';
 import 'package:careernavigator/View/Modules/Institutions/logininstitut.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
