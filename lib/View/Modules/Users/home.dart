@@ -4,6 +4,7 @@ import 'package:careernavigator/View/Modules/Users/popularcourses.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -15,14 +16,11 @@ import '../../../Model/usermodel.dart';
 class Home_Page extends StatefulWidget {
   const Home_Page({super.key});
 
-
   @override
   State<Home_Page> createState() => _Home_PageState();
 }
 
 class _Home_PageState extends State<Home_Page> {
-
-
   List<UserRegistration>? registrations;
 
   @override
@@ -41,11 +39,8 @@ class _Home_PageState extends State<Home_Page> {
     }
   }
 
-
-
   @override
   Widget build(BuildContext context) {
-
     Future<List<Map<String, dynamic>>> fetchAllCourses() async {
       try {
         final institutionsSnapshot = await FirebaseFirestore.instance
@@ -57,9 +52,8 @@ class _Home_PageState extends State<Home_Page> {
         List<Map<String, dynamic>> courses = [];
 
         for (var institutionDoc in institutionsSnapshot.docs) {
-          final coursesSnapshot = await institutionDoc.reference
-              .collection('courses')
-              .get();
+          final coursesSnapshot =
+              await institutionDoc.reference.collection('courses').get();
 
           for (var courseDoc in coursesSnapshot.docs) {
             courses.add(courseDoc.data());
@@ -78,13 +72,10 @@ class _Home_PageState extends State<Home_Page> {
 
     final provider = Provider.of<BackendServices>(context);
 
-
-
     String? userId = FirebaseAuth.instance.currentUser?.uid;
 
     UserRegistration? currentUserRegistration = registrations?.firstWhere(
-          (registration) => registration.userid == userId,
-
+      (registration) => registration.userid == userId,
     );
 
     return Scaffold(
@@ -94,12 +85,12 @@ class _Home_PageState extends State<Home_Page> {
           children: [
             Text(
               "Hi,",
-              style: GoogleFonts.poppins(color: Colors.black, fontSize: 18),
+              style: GoogleFonts.poppins(color: Colors.black, fontSize: 20),
             ),
             const SizedBox(width: 4),
             Text(
-              currentUserRegistration?.Name ??'',
-              style: GoogleFonts.poppins(color: Colors.white, fontSize: 18),
+              currentUserRegistration?.Name ?? '',
+              style: GoogleFonts.poppins(color: Colors.white, fontSize: 16),
             ),
           ],
         ),
@@ -127,7 +118,8 @@ class _Home_PageState extends State<Home_Page> {
                 width: width,
                 child: CarouselSlider.builder(
                   itemCount: 4,
-                  itemBuilder: (BuildContext context, int itemIndex, int pageviewIndex) {
+                  itemBuilder:
+                      (BuildContext context, int itemIndex, int pageviewIndex) {
                     return Container(
                       height: height / 2,
                       width: width,
@@ -148,7 +140,8 @@ class _Home_PageState extends State<Home_Page> {
                                       fontSize: 17),
                                 ),
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                   children: [
                                     Text(
                                       "UI/UX",
@@ -170,20 +163,22 @@ class _Home_PageState extends State<Home_Page> {
                                 Text(
                                   "Join and become professional.",
                                   style: TextStyle(
-                                      fontFamily: GoogleFonts.roboto().fontFamily,
+                                      fontFamily:
+                                          GoogleFonts.roboto().fontFamily,
                                       fontSize: 14,
                                       color: Colors.white),
                                 ),
-                                SizedBox(height: 13),
+                                SizedBox(height: 14),
                                 SizedBox(
-                                  height: height * 0.05,
+                                  height: height * 0.045,
                                   child: ElevatedButton(
                                     style: ButtonStyle(
-                                      backgroundColor:
-                                      MaterialStatePropertyAll(HexColor("#FF864E")),
+                                      backgroundColor: MaterialStatePropertyAll(
+                                          HexColor("#FF864E")),
                                       shape: MaterialStatePropertyAll(
                                         RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(5),
+                                          borderRadius:
+                                              BorderRadius.circular(5),
                                         ),
                                       ),
                                     ),
@@ -193,7 +188,8 @@ class _Home_PageState extends State<Home_Page> {
                                         "Start Learn Now",
                                         style: TextStyle(
                                             color: HexColor("#FFFCFC"),
-                                            fontFamily: GoogleFonts.roboto().fontFamily),
+                                            fontFamily: GoogleFonts.roboto()
+                                                .fontFamily),
                                       ),
                                     ),
                                   ),
@@ -229,7 +225,9 @@ class _Home_PageState extends State<Home_Page> {
                     child: Text(
                       "Top Categories",
                       style: GoogleFonts.poppins(
-                          color: Colors.black, fontSize: 15, fontWeight: FontWeight.w600),
+                          color: Colors.black,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600),
                     ),
                   ),
                   SizedBox(height: 15),
@@ -268,13 +266,17 @@ class _Home_PageState extends State<Home_Page> {
                     padding: const EdgeInsets.only(left: 20),
                     child: InkWell(
                       onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => Popular_Course()));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Popular_Course()));
                       },
                       child: Text(
                         "Popular Courses",
                         style: GoogleFonts.poppins(
-                            color: Colors.black, fontSize: 15, fontWeight: FontWeight.w600),
+                            color: Colors.black,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600),
                       ),
                     ),
                   ),
@@ -284,11 +286,14 @@ class _Home_PageState extends State<Home_Page> {
                     child: FutureBuilder<List<Map<String, dynamic>>>(
                       future: fetchAllCourses(),
                       builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.waiting) {
-                          return const Center(child: CircularProgressIndicator());
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Center(
+                              child: CircularProgressIndicator());
                         }
                         if (snapshot.hasError) {
-                          return Center(child: Text('Error: ${snapshot.error}'));
+                          return Center(
+                              child: Text('Error: ${snapshot.error}'));
                         }
                         final courses = snapshot.data ?? [];
                         return ListView.builder(
@@ -297,7 +302,8 @@ class _Home_PageState extends State<Home_Page> {
                           itemBuilder: (context, index) {
                             final course = courses[index];
                             return Padding(
-                              padding: const EdgeInsets.only(right: 20, left: 20),
+                              padding:
+                                  const EdgeInsets.only(right: 20, left: 20),
                               child: Card(
                                 elevation: 5,
                                 shape: RoundedRectangleBorder(
@@ -321,22 +327,24 @@ class _Home_PageState extends State<Home_Page> {
                                             topRight: Radius.circular(20),
                                           ),
                                           image: course['imageUrl'] != null &&
-                                              course['imageUrl'].isNotEmpty
+                                                  course['imageUrl'].isNotEmpty
                                               ? DecorationImage(
-                                            fit: BoxFit.cover,
-                                            image: NetworkImage(course['imageUrl']),
-                                          )
+                                                  fit: BoxFit.cover,
+                                                  image: NetworkImage(
+                                                      course['imageUrl']),
+                                                )
                                               : null,
                                         ),
                                         child: course['imageUrl'] == null ||
-                                            course['imageUrl'].isEmpty
+                                                course['imageUrl'].isEmpty
                                             ? Center(child: Text('No Image'))
                                             : null,
                                       ),
                                       Padding(
                                         padding: const EdgeInsets.all(14.0),
                                         child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
                                             Container(
                                               width: width,
@@ -346,20 +354,39 @@ class _Home_PageState extends State<Home_Page> {
                                                   style: GoogleFonts.roboto(
                                                       color: Colors.black,
                                                       fontSize: 18.5,
-                                                      fontWeight: FontWeight.w600),
+                                                      fontWeight:
+                                                          FontWeight.w600),
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 5,
+                                            ),
+                                            SizedBox(
+                                              height: height * 0.054,
+                                              child: Expanded(
+                                                child: Text(
+                                                  course['about'],
+                                                  style: GoogleFonts.roboto(
+                                                      color: Colors.black.withOpacity(0.7),
+                                                      fontSize: 14.5,
+                                                      fontWeight:
+                                                          FontWeight.w500),
                                                 ),
                                               ),
                                             ),
                                             SizedBox(height: 10),
                                             Row(
-                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
                                               children: [
                                                 Text(
                                                   "4.5",
                                                   style: GoogleFonts.poppins(
                                                       color: Colors.black,
                                                       fontSize: 13,
-                                                      fontWeight: FontWeight.w500),
+                                                      fontWeight:
+                                                          FontWeight.w500),
                                                 ),
                                                 const SizedBox(width: 6),
                                                 const Icon(
@@ -373,7 +400,8 @@ class _Home_PageState extends State<Home_Page> {
                                                   style: GoogleFonts.poppins(
                                                       color: Colors.black,
                                                       fontSize: 13,
-                                                      fontWeight: FontWeight.w500),
+                                                      fontWeight:
+                                                          FontWeight.w500),
                                                 ),
                                                 const SizedBox(width: 6),
                                                 Text(
@@ -381,11 +409,12 @@ class _Home_PageState extends State<Home_Page> {
                                                   style: GoogleFonts.poppins(
                                                       color: Colors.black,
                                                       fontSize: 13,
-                                                      fontWeight: FontWeight.w500),
+                                                      fontWeight:
+                                                          FontWeight.w500),
                                                 ),
                                               ],
                                             ),
-                                            SizedBox(height: 24),
+                                            SizedBox(height: 22),
                                             Container(
                                               height: height * 0.033,
                                               width: width / 3.5,
@@ -394,31 +423,35 @@ class _Home_PageState extends State<Home_Page> {
                                                 child: Text(
                                                   "Video Lessons",
                                                   style: GoogleFonts.poppins(
-                                                      color: HexColor("#666666"),
+                                                      color:
+                                                          HexColor("#666666"),
                                                       fontSize: 12,
-                                                      fontWeight: FontWeight.w600),
+                                                      fontWeight:
+                                                          FontWeight.w600),
                                                 ),
                                               ),
                                             ),
                                             SizedBox(height: 20),
                                             Row(
-                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
                                               children: [
                                                 const Image(
                                                   fit: BoxFit.cover,
                                                   width: 20,
                                                   height: 20,
-                                                  image: AssetImage("assets/Group 27.png"),
+                                                  image: AssetImage(
+                                                      "assets/Group 27.png"),
                                                 ),
                                                 SizedBox(width: 8),
                                                 Text(
                                                   "Enroll and win reward",
                                                   style: GoogleFonts.poppins(
-                                                      color: Colors.black, fontSize: 11),
+                                                      color: Colors.black,
+                                                      fontSize: 11),
                                                 ),
                                               ],
                                             ),
-                                            Text(course['courseName'] ?? '')
                                           ],
                                         ),
                                       ),

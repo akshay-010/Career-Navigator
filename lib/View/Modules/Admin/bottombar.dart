@@ -8,6 +8,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 
 import '../../../Controller/Providers/userprovider.dart';
+import 'addentranceexam.dart';
 import 'addinstitutions.dart';
 import 'counsellors.dart';
 class BottomBarrr extends StatefulWidget {
@@ -64,6 +65,9 @@ class _BottomBarrrState extends State<BottomBarrr> {
                 }, icon: Icon(Icons.add_home_work_rounded,color: provider.selectedIndex ==3 ?Colors.black :Colors.white,)),
                 IconButton(onPressed: (){
                   provider.tab4();
+                }, icon: Icon(Icons.add_circle_sharp,color: provider.selectedIndex ==4 ?Colors.black :Colors.white,)),
+                IconButton(onPressed: (){
+                  provider.tab5();
                 }, icon: Icon(Icons.add_circle_sharp,color: provider.selectedIndex ==4 ?Colors.black :Colors.white,))
 
               ],
@@ -159,6 +163,16 @@ class _BottomBarrrState extends State<BottomBarrr> {
                   height: height,
                   width: width/2.8,
                   child: AddCounsellorsAdmin(),
+                )
+
+            ),
+            Visibility(
+                visible: provider.selectedIndex == 5,
+                child: Container(
+                  color: Colors.transparent,
+                  height: height,
+                  width: width/2.8,
+                  child: AddEntranceExam(),
                 )
 
             ),

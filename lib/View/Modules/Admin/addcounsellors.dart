@@ -291,7 +291,7 @@ class _AddCounsellorsAdminState extends State<AddCounsellorsAdmin> {
 
                         // Show success message for institution addition
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Institution successfully added')),
+                          SnackBar(content: Text('Counsellor successfully added')),
                         );
 
                         // Attempt to create a new user with the provided email and password

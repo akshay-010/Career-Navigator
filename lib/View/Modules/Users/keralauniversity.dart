@@ -94,6 +94,7 @@ class _KeralaUniversityState extends State<KeralaUniversity> {
               SizedBox(
                 height: height * 0.077,
                 child: TabBar(
+                  overlayColor: MaterialStatePropertyAll(Colors.transparent),
                   indicator: const BubbleTabIndicator(
                       indicatorColor: Colors.grey
                   ),

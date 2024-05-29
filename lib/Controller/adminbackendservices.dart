@@ -363,6 +363,66 @@ class AdminBackend extends ChangeNotifier  {
 
 
 
+
+
+
+  TextEditingController examnameController = TextEditingController();
+  TextEditingController aboutexamController = TextEditingController();
+
+
+  Future<void> addEntreaneExam(
+      String examname,
+      String examabout,
+
+      ) async {
+    try {
+      final user = _firebaseAuth.currentUser;
+      AdmEntrance admEntrance = AdmEntrance(
+        userId: user!.uid,
+        examname: examname,
+        examabout: examabout,
+
+      );
+      await _firebaseFirestore
+          .collection('Admin')
+          .doc("ADMIN")
+          .collection("entranceexam")
+          .doc(user.uid)
+          .set(admEntrance.toMap());
+      print('*Institution Stored');
+    } catch (e) {
+      print("Institution storing failed: $e");
+    }
+    notifyListeners();
+  }
+
+
+
+
+
+  Future<List<AdmEntrance>> fetchEntranceExam() async {
+    try {
+      final user = _firebaseAuth.currentUser;
+      QuerySnapshot querySnapshot = await _firebaseFirestore
+          .collection('Admin')
+          .doc("ADMIN")
+          .collection("entranceexam")
+          .where( user!.uid)
+          .get();
+
+      List<AdmEntrance> entranceExams = querySnapshot.docs.map((doc) {
+        return AdmEntrance.fromMap(doc.data() as Map<String, dynamic>);
+      }).toList();
+
+      return entranceExams;
+    } catch (e) {
+      print("Failed to fetch entrance exams: $e");
+      return [];
+    }
+  }
+
+
+
 }
 
 

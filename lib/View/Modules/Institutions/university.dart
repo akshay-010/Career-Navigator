@@ -69,22 +69,47 @@ class UniversityPage extends StatelessWidget {
                       const SizedBox(
                         height: 15,
                       ),
-                      SizedBox(
-                        height: height / 4,
-                        width: width / 1.2,
-                        child: Expanded(
-                            child: Text(
-                          "about",
-                          // "University of Kerala, formerly the University of Travancore,is a state-run public university in Thiruvananthapuram,the state capital of Kerala, India. It was established in1937 by a promulgation of the Maharajah of Travancore,Chithira Thirunal Balarama Varma who was also thefirst Chancellor of the university",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontFamily: GoogleFonts.poppins().fontFamily,
-                              fontSize: 14),
-                        )),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 20,right: 20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text("Manager Name :"),SizedBox(width: 20,),
+                                Text(institution['managername']?? 'No Name')
+                              ],
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text("Location :"),SizedBox(width: 20,),
+                                Text(institution['location']?? 'No Name')
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
+                      // SizedBox(
+                      //   height: height / 4,
+                      //   width: width / 1.2,
+                      //   child: Expanded(
+                      //       child: Text(
+                      //     "about",
+                      //     // "University of Kerala, formerly the University of Travancore,is a state-run public university in Thiruvananthapuram,the state capital of Kerala, India. It was established in1937 by a promulgation of the Maharajah of Travancore,Chithira Thirunal Balarama Varma who was also thefirst Chancellor of the university",
+                      //     textAlign: TextAlign.center,
+                      //     style: TextStyle(
+                      //         color: Colors.black,
+                      //         fontFamily: GoogleFonts.poppins().fontFamily,
+                      //         fontSize: 14),
+                      //   )),
+                      // ),
                       const SizedBox(
-                        height: 10,
+                        height: 160,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,

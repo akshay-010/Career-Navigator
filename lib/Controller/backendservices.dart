@@ -18,6 +18,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
 import '../Model/usermodel.dart';
+import '../View/Modules/Users/loginpage.dart';
 
 class BackendServices extends ChangeNotifier{
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
@@ -139,6 +140,38 @@ class BackendServices extends ChangeNotifier{
 
 
 
+  Future<List<UserRegistration>> fetchRegistrationsProfile() async {
+    List<UserRegistration> registrations = [];
+
+    try {
+      QuerySnapshot querySnapshot = await _firebaseFirestore
+          .collection('User')
+          .doc('AllRegistrations')
+          .collection("Registration")
+          .get();
+
+      querySnapshot.docs.forEach((doc) {
+        // Make sure to check for null or missing fields
+        UserRegistration registration = UserRegistration(
+          userid: doc['userid'] ?? '', // Replace '' with default value if necessary
+          Name: doc['Name'] ?? '', // Replace '' with default value if necessary
+          Qualification: doc['Qualification'] ?? '', // Replace '' with default value if necessary
+          Gender: doc['Gender'] ?? '', // Replace '' with default value if necessary
+          emaill: doc['emaill'] ?? '', // Replace '' with default value if necessary
+          Number: doc['Number'] ?? '', // Replace '' with default value if necessary
+          imageUrl: doc['imageUrl'] ?? null, // Set imageUrl to null if missing
+        );
+
+        registrations.add(registration);
+      });
+
+      return registrations;
+    } catch (e) {
+      print("Failed to fetch registrations: $e");
+      return [];
+    }
+  }
+
 
 
   // // Your other methods and properties here
@@ -228,6 +261,41 @@ class BackendServices extends ChangeNotifier{
       print('Error fetching owned institution: $e');
       return null;
     }
+  }
+
+
+
+
+
+  Future<void> logout(BuildContext context) async {
+    try {
+      await _firebaseAuth.signOut();
+      Navigator.push(context, MaterialPageRoute(builder: (context)=>Login_Page()));
+    } catch (e) {
+      print("Error logging out: $e");
+    }
+  }
+
+  void showLogoutDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Confirm Logout"),
+          content: Text("Are you sure you want to logout?"),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text("Cancel"),
+            ),
+            TextButton(
+              onPressed: () => logout(context),
+              child: Text("Logout"),
+            ),
+          ],
+        );
+      },
+    );
   }
 
 

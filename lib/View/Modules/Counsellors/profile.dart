@@ -192,6 +192,7 @@
 
 import 'dart:typed_data';
 import 'dart:io';
+import 'package:careernavigator/View/Modules/Counsellors/loginsign.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -441,7 +442,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                   color: Colors.white,
                                 )),
                             TextButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>CounsellorLogin()));
+                                },
                                 child: Text(
                                   "Logout",
                                   style: TextStyle(

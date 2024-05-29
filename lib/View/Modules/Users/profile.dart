@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:careernavigator/View/Modules/Users/viewprofile.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -67,7 +68,7 @@ class _ProfileState extends State<Profile> {
                                       registration.imageUrl.toString()),
                                 ),
                                 const SizedBox(
-                                  width: 15,
+                                  width: 20,
                                 ),
                                 Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -75,20 +76,36 @@ class _ProfileState extends State<Profile> {
                                   children: [
                                     Text(
                                       registration.Name,
-                                      style: GoogleFonts.aBeeZee(
+                                      style: GoogleFonts.inter(
                                           color: Colors.black,
                                           fontWeight: FontWeight.w600,
-                                          fontSize: 19),
-                                    ),
+                                          fontSize: 20),
+                                    ),SizedBox(height: 5,),
                                     Text(
                                       registration.Qualification,
                                       style: GoogleFonts.radioCanada(
                                           color: Colors.black,
                                           fontSize: 17,
-                                          fontWeight: FontWeight.w500),
+                                          fontWeight: FontWeight.w400),
                                     ),
                                   ],
-                                )
+                                ),
+                                Spacer(),
+                                TextButton(
+                                    onPressed: () async {
+                                      final pickedFile = await ImagePicker()
+                                          .pickImage(
+                                          source: ImageSource.gallery);
+                                      if (pickedFile != null) {
+                                        setState(() {
+                                          _image = File(pickedFile.path);
+                                        });
+                                        provider.insertImage(
+                                            registration.userid, _image);
+                                      }
+                                    },
+                                    child: Text("Add Image")),
+                                SizedBox(width: 20,)
                               ],
                             ),
                           ),
@@ -99,22 +116,10 @@ class _ProfileState extends State<Profile> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                TextButton(
-                                    onPressed: () async {
-                                      final pickedFile = await ImagePicker()
-                                          .pickImage(
-                                              source: ImageSource.gallery);
-                                      if (pickedFile != null) {
-                                        setState(() {
-                                          _image = File(pickedFile.path);
-                                        });
-                                        provider.insertImage(
-                                            registration.userid, _image);
-                                      }
-                                    },
-                                    child: Text("Add Image")),
                                 InkWell(
-                                  onTap: () {},
+                                  onTap: () {
+                                      Navigator.push(context, MaterialPageRoute(builder: (context)=>ViewProfile()));
+                                  },
                                   child: ListTile(
                                     leading:
                                         Image.asset("assets/Vector (6).png"),
@@ -198,7 +203,9 @@ class _ProfileState extends State<Profile> {
                                   height: 2,
                                 ),
                                 InkWell(
-                                  onTap: () {},
+                                  onTap: () {
+                                    provider.showLogoutDialog(context);
+                                  },
                                   child: ListTile(
                                     leading:
                                         Image.asset("assets/Vector (10).png"),

@@ -141,6 +141,14 @@ class AddCourse extends StatefulWidget {
 class _AddCourseState extends State<AddCourse> {
   final TextEditingController courseNameController = TextEditingController();
   final TextEditingController aboutController = TextEditingController();
+
+  var categoery;
+  List listtt=[
+    'SSLC','Plus two', 'VHSE','Graduation', 'Diploma','Postgraduation',
+  ];
+
+
+
   final ImagePicker _picker = ImagePicker();
   XFile? _image;
 
@@ -158,7 +166,6 @@ class _AddCourseState extends State<AddCourse> {
         final String ownerId = user.uid;
         String? imageUrl;
 
-        // Upload image if picked
         if (_image != null) {
           final File imageFile = File(_image!.path);
           final storageRef = FirebaseStorage.instance
@@ -179,6 +186,7 @@ class _AddCourseState extends State<AddCourse> {
           'courseName': courseNameController.text,
           'about': aboutController.text,
           'imageUrl': imageUrl,
+          'category': categoery,
           'created_at': Timestamp.now(),
         });
 
@@ -277,6 +285,37 @@ class _AddCourseState extends State<AddCourse> {
                 ),
               ),
               const SizedBox(height: 20),
+             Container(
+               height: 50,
+               decoration: BoxDecoration(
+                 borderRadius: BorderRadius.circular(8),
+                 border: Border.all(color: HexColor("#B49191"))
+               ),
+               child:  Padding(
+                 padding: const EdgeInsets.only(left: 10),
+                 child: DropdownButton(
+                     isExpanded: true,
+                     underline: SizedBox(),
+                     alignment: AlignmentDirectional.centerEnd,
+                     elevation: 25,
+                     value: categoery,
+                     hint: Text('Categoery',style: GoogleFonts.poppins(color: Colors.black,fontSize: 12.5,fontWeight: FontWeight.w500),),
+                     items: listtt
+                         .map((e) => DropdownMenuItem(
+                       child: Text(e),
+                       value: e,
+                     ))
+                         .toList(),
+                     onChanged: (val) {
+                       setState(() {
+                         categoery = val;
+                       });
+                     }),
+               ),
+             ),
+              SizedBox(
+                height: 20,
+              ),
               ElevatedButton(
                 onPressed: _pickImage,
                 child: Text('Pick Image'),
@@ -311,7 +350,10 @@ class _AddCourseState extends State<AddCourse> {
                     backgroundColor:
                     MaterialStatePropertyAll(HexColor("#3568FF")),
                   ),
-                  onPressed: addCourse,
+                  onPressed: (){
+                    addCourse();
+                  },
+                  // onPressed: addCourse,
                   child: const Center(
                     child: Text(
                       "Add Course",

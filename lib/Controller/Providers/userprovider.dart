@@ -18,6 +18,22 @@ class UserProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+
+
+
+  int _selectedIndexx = 0;
+
+  int get selectedIndexx => _selectedIndexx;
+
+  void setIndex(int index) {
+    _selectedIndexx = index;
+    notifyListeners();
+  }
+
+
+
+
+
   bool pass = false;
   void checkbox() {
     pass = !pass;
@@ -43,6 +59,10 @@ class UserProvider extends ChangeNotifier {
   }
   void tab4(){
     selectedIndex =4;
+    notifyListeners();
+  }
+  void tab5(){
+    selectedIndex =5;
     notifyListeners();
   }
 

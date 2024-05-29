@@ -48,37 +48,61 @@ class _InstitutionsPageState extends State<InstitutionsPage> {
               }
 
               final institutionsList = snapshot.data!;
-              return ListView.builder(
-                itemCount: institutionsList.length,
-                itemBuilder: (context, index) {
-                  final institution = institutionsList[index];
+              return Padding(
+                padding: const EdgeInsets.only(top: 15),
+                child: ListView.builder(
+                  itemCount: institutionsList.length,
+                  itemBuilder: (context, index) {
+                    final institution = institutionsList[index];
 
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => KeralaUniversity(
-                                    institution: institution)));
-                      },
-                      child: ListTile(
-                        leading: CircleAvatar(
-                          backgroundImage: institution.imageUrl.isNotEmpty
-                              ? NetworkImage(institution.imageUrl)
-                              : AssetImage("assets/Ellipse 46.png")
-                                  as ImageProvider,
-                          onBackgroundImageError: (exception, stackTrace) {
-                            print('Image load error: $exception');
-                          },
+                    return Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => KeralaUniversity(
+                                      institution: institution)));
+                        },
+                        child: Card(
+                          elevation: 4,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              color: HexColor("65799B").withOpacity(0.5),
+                            ),
+                            child: ListTile(
+                              leading: CircleAvatar(
+                                radius: 26,
+                                backgroundImage: institution.imageUrl.isNotEmpty
+                                    ? NetworkImage(institution.imageUrl)
+                                    : AssetImage("assets/Ellipse 46.png")
+                                        as ImageProvider,
+                                onBackgroundImageError: (exception, stackTrace) {
+                                  print('Image load error: $exception');
+                                },
+                              ),
+                              title: Text(institution.institutionname,
+                               style:  TextStyle(
+                                    fontFamily: GoogleFonts.poppins().fontFamily,
+                                    color: Colors.black,
+                                    fontSize: 15.5,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                              subtitle: Text(institution.location,
+                              style: TextStyle(
+                                fontFamily: GoogleFonts.inter().fontFamily
+                              ),
+                              ),
+                            ),
+                          ),
                         ),
-                        title: Text(institution.institutionname),
-                        subtitle: Text(institution.location),
                       ),
-                    ),
-                  );
-                },
+                    );
+                  },
+                ),
               );
             }),
       ),

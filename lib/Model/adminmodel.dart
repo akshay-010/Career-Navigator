@@ -105,3 +105,39 @@ class AdminAddCounsellor {
     };
   }
 }
+
+
+
+
+
+
+class AdmEntrance {
+  String userId;
+  String examname;
+  String examabout;
+
+
+  AdmEntrance({
+    required this.userId,
+    required this.examname,
+    required this.examabout,
+
+  });
+
+  factory AdmEntrance.fromMap(Map<String, dynamic> map) {
+    return AdmEntrance(
+      userId: map['userId'],
+      examname: map['examname'],
+      examabout: map['examabout'],
+
+    );
+
+  }
+  Map<String, dynamic> toMap() {
+    return {
+      'userId':userId,
+      'examname':examname,
+      'examabout': examabout,
+    };
+  }
+}
