@@ -124,31 +124,34 @@ class _AllCoursesState extends State<AllCourses> {
 
                       final courses = snapshot.data!.docs;
 
-                      return ListView.builder(
-                        itemCount:courses.length,
-                        itemBuilder: (context, index) {
-                          final course = courses[index].data() as Map<String, dynamic>;
-
-                          return Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: ListTile(
-                              leading: CircleAvatar(
-                                radius: 30,
-                                backgroundImage: NetworkImage(course['imageUrl'],),
-                              ),
-                              title: Padding(
-                                padding: const EdgeInsets.only(left: 7),
-                                child: Text(
-                                course['courseName'],
-                                  style: GoogleFonts.poppins(
-                                      color: Colors.black,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w500),
+                      return Expanded(
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount:courses.length,
+                          itemBuilder: (context, index) {
+                            final course = courses[index].data() as Map<String, dynamic>;
+                        
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ListTile(
+                                leading: CircleAvatar(
+                                  radius: 30,
+                                  backgroundImage: NetworkImage(course['imageUrl'],),
+                                ),
+                                title: Padding(
+                                  padding: const EdgeInsets.only(left: 7),
+                                  child: Text(
+                                  course['courseName'],
+                                    style: GoogleFonts.poppins(
+                                        color: Colors.black,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500),
+                                  ),
                                 ),
                               ),
-                            ),
-                          );
-                        },
+                            );
+                          },
+                        ),
                       );
                     }
                   ),

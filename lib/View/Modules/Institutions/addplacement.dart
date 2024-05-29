@@ -66,6 +66,12 @@ class _AddPlacementState extends State<AddPlacement> {
           SnackBar(content: Text('Placement added successfully')),
         );
 
+        setState(() {
+          studentNameController.clear();
+          courseController.clear();
+          _image = null;
+        });
+
         // Navigate to the CourseListPage
         Navigator.push(
           context,

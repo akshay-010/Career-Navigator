@@ -51,24 +51,17 @@ class _ViewProfileState extends State<ViewProfile> {
         width: double.infinity,
         height: double.infinity,
         child: SafeArea(
-          child: FutureBuilder<List<UserRegistration>>(
-              future: provider.fetchRegistrations(),
+          child: FutureBuilder<UserRegistration?>(
+              future: provider.getCurrentUserRegistration(),
               builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                } else if (snapshot.hasError) {
-                  return Center(
-                    child: Text('Error: ${snapshot.error}'),
-                  );
-                } else {
-                  List<UserRegistration>? registrations = snapshot.data;
-                  if (registrations == null || registrations.isEmpty) {
-                    return Center(
-                      child: Text('No data available.'),
-                    );
-                  } else {
+    if (snapshot.connectionState == ConnectionState.waiting) {
+    return Center(child: CircularProgressIndicator());
+    } else if (snapshot.hasError) {
+    return Center(child: Text('Error fetching user details'));
+    } else if (!snapshot.hasData || snapshot.data == null) {
+    return Center(child: Text('No user registration found'));
+    } else {
+    UserRegistration user = snapshot.data!;
                     return Column(
                       children: [
                         Row(
@@ -83,7 +76,7 @@ class _ViewProfileState extends State<ViewProfile> {
                           decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               image: DecorationImage(
-                                image: NetworkImage(registrations[0].imageUrl ??
+                                image: NetworkImage(user.imageUrl ??
                                     'https://via.placeholder.com/100'),
                                 fit: BoxFit.cover,
                               )),
@@ -92,14 +85,14 @@ class _ViewProfileState extends State<ViewProfile> {
                           height: 10,
                         ),
                         Text(
-                          registrations[0].Name,
+                          user.Name,
                           style: GoogleFonts.inter(
                               color: Colors.white,
                               fontSize: 20,
                               fontWeight: FontWeight.w600),
                         ),
                         Text(
-                          registrations[0].emaill,
+                          user.emaill,
                           style: GoogleFonts.aBeeZee(
                               color: Colors.white, fontSize: 13),
                         ),
@@ -156,7 +149,7 @@ class _ViewProfileState extends State<ViewProfile> {
                                                   alignment:
                                                       Alignment.centerLeft,
                                                   child: Text(
-                                                    registrations[0].Name,
+                                                    user.Name,
                                                     style: TextStyle(
                                                         color: Colors.white),
                                                   )),
@@ -207,7 +200,7 @@ class _ViewProfileState extends State<ViewProfile> {
                                                   alignment:
                                                       Alignment.centerLeft,
                                                   child: Text(
-                                                    registrations[0]
+                                                    user
                                                         .Qualification,
                                                     style: TextStyle(
                                                         color: Colors.white),
@@ -250,7 +243,7 @@ class _ViewProfileState extends State<ViewProfile> {
                                                   alignment:
                                                       Alignment.centerLeft,
                                                   child: Text(
-                                                    registrations[0].Gender,
+                                                    user.Gender,
                                                     style: TextStyle(
                                                         color: Colors.white),
                                                   )),
@@ -292,7 +285,7 @@ class _ViewProfileState extends State<ViewProfile> {
                                                   alignment:
                                                       Alignment.centerLeft,
                                                   child: Text(
-                                                    registrations[0].Number,
+                                                    user.Number,
                                                     style: TextStyle(
                                                         color: Colors.white),
                                                   )),
@@ -334,7 +327,7 @@ class _ViewProfileState extends State<ViewProfile> {
                                                   alignment:
                                                       Alignment.centerLeft,
                                                   child: Text(
-                                                    registrations[0].emaill,
+                                                    user.emaill,
                                                     style: TextStyle(
                                                         color: Colors.white),
                                                   )),
@@ -378,7 +371,7 @@ class _ViewProfileState extends State<ViewProfile> {
                     );
                   }
                 }
-              }),
+              ),
         ),
       ),
     );

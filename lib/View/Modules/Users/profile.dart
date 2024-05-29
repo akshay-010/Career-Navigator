@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../Controller/backendservices.dart';
 import '../../../Model/usermodel.dart';
@@ -34,24 +35,18 @@ class _ProfileState extends State<Profile> {
               color: Colors.white, fontWeight: FontWeight.w500, fontSize: 22),
         ),
       ),
-      body: FutureBuilder<List<UserRegistration>>(
-          future: provider.fetchRegistrations(),
+      body: FutureBuilder<UserRegistration?>(
+          future: provider.getCurrentUserRegistration(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
+              return Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError) {
-              return Center(
-                child: Text('Error: ${snapshot.error}'),
-              );
+              return Center(child: Text('Error fetching user details'));
+            } else if (!snapshot.hasData || snapshot.data == null) {
+              return Center(child: Text('No user registration found'));
             } else {
-              List<UserRegistration>? registrations = snapshot.data;
+              UserRegistration user = snapshot.data!;
 
-              return ListView.builder(
-                  itemCount: registrations!.length,
-                  itemBuilder: (context, index) {
-                    final registration = registrations[index];
                     return Column(
                       children: [
                         Container(
@@ -65,7 +60,7 @@ class _ProfileState extends State<Profile> {
                                 CircleAvatar(
                                   radius: 50,
                                   backgroundImage: NetworkImage(
-                                      registration.imageUrl.toString()),
+                                      user.imageUrl.toString()),
                                 ),
                                 const SizedBox(
                                   width: 20,
@@ -75,14 +70,14 @@ class _ProfileState extends State<Profile> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      registration.Name,
+                                      user.Name,
                                       style: GoogleFonts.inter(
                                           color: Colors.black,
                                           fontWeight: FontWeight.w600,
                                           fontSize: 20),
                                     ),SizedBox(height: 5,),
                                     Text(
-                                      registration.Qualification,
+                                      user.Qualification,
                                       style: GoogleFonts.radioCanada(
                                           color: Colors.black,
                                           fontSize: 17,
@@ -101,7 +96,7 @@ class _ProfileState extends State<Profile> {
                                           _image = File(pickedFile.path);
                                         });
                                         provider.insertImage(
-                                            registration.userid, _image);
+                                            user.userid, _image);
                                       }
                                     },
                                     child: Text("Add Image")),
@@ -139,24 +134,24 @@ class _ProfileState extends State<Profile> {
                                 const SizedBox(
                                   height: 2,
                                 ),
-                                InkWell(
-                                  onTap: () {},
-                                  child: ListTile(
-                                    leading:
-                                        Image.asset("assets/Vector (7).png"),
-                                    title: Text(
-                                      "Settings",
-                                      style: GoogleFonts.roboto(
-                                          color: Colors.black,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w400),
-                                    ),
-                                    trailing: Icon(
-                                      Icons.arrow_forward_ios_outlined,
-                                      color: HexColor("#A527BC"),
-                                    ),
-                                  ),
-                                ),
+                                // InkWell(
+                                //   onTap: () {},
+                                //   child: ListTile(
+                                //     leading:
+                                //         Image.asset("assets/Vector (7).png"),
+                                //     title: Text(
+                                //       "Settings",
+                                //       style: GoogleFonts.roboto(
+                                //           color: Colors.black,
+                                //           fontSize: 14,
+                                //           fontWeight: FontWeight.w400),
+                                //     ),
+                                //     trailing: Icon(
+                                //       Icons.arrow_forward_ios_outlined,
+                                //       color: HexColor("#A527BC"),
+                                //     ),
+                                //   ),
+                                // ),
                                 const SizedBox(
                                   height: 2,
                                 ),
@@ -182,7 +177,15 @@ class _ProfileState extends State<Profile> {
                                   height: 2,
                                 ),
                                 InkWell(
-                                  onTap: () {},
+                                  onTap: () {
+                                      Uri launchUri = Uri(
+                                        scheme: 'https',
+                                        host: 'api.whatsapp.com',
+                                        path: 'send',
+                                        queryParameters: {'phone': user.Number},
+                                      );
+                                      launchUrl(launchUri);
+                                  },
                                   child: ListTile(
                                     leading:
                                         Image.asset("assets/Vector (9).png"),
@@ -228,7 +231,7 @@ class _ProfileState extends State<Profile> {
                         )
                       ],
                     );
-                  });
+
             }
           }),
     );

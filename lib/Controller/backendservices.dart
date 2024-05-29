@@ -108,12 +108,40 @@ class BackendServices extends ChangeNotifier{
 
 
 
+             //Latest fetch registration
+
+  Future<UserRegistration?> getCurrentUserRegistration() async {
+    try {
+      final user = _firebaseAuth.currentUser;
+      if (user != null) {
+        DocumentSnapshot doc = await _firebaseFirestore
+            .collection('User')
+            .doc('AllRegistrations')
+            .collection("Registration")
+            .doc(user.uid)
+            .get();
+
+        if (doc.exists) {
+          return UserRegistration.fromMap(doc.data() as Map<String, dynamic>);
+        }
+      }
+    } catch (e) {
+      print("Fetching user registration details failed: $e");
+    }
+    return null;
+  }
 
 
+
+
+
+  //
+  //
 
   Future<List<UserRegistration>> fetchRegistrations() async {
     List<UserRegistration> registrations = [];
     try {
+      final user = _firebaseAuth.currentUser;
       QuerySnapshot querySnapshot = await FirebaseFirestore.instance
           .collection('User')
           .doc('AllRegistrations')
@@ -138,39 +166,42 @@ class BackendServices extends ChangeNotifier{
   }
 
 
+  //
+  //
+  // Future<List<UserRegistration>> fetchRegistrationsProfile() async {
+  //   List<UserRegistration> registrations = [];
+  //
+  //   try {
+  //     QuerySnapshot querySnapshot = await _firebaseFirestore
+  //         .collection('User')
+  //         .doc('AllRegistrations')
+  //         .collection("Registration")
+  //         .get();
+  //
+  //     querySnapshot.docs.forEach((doc) {
+  //       // Make sure to check for null or missing fields
+  //       UserRegistration registration = UserRegistration(
+  //         userid: doc['userid'] ?? '', // Replace '' with default value if necessary
+  //         Name: doc['Name'] ?? '', // Replace '' with default value if necessary
+  //         Qualification: doc['Qualification'] ?? '', // Replace '' with default value if necessary
+  //         Gender: doc['Gender'] ?? '', // Replace '' with default value if necessary
+  //         emaill: doc['emaill'] ?? '', // Replace '' with default value if necessary
+  //         Number: doc['Number'] ?? '', // Replace '' with default value if necessary
+  //         imageUrl: doc['imageUrl'] ?? null, // Set imageUrl to null if missing
+  //       );
+  //
+  //       registrations.add(registration);
+  //     });
+  //
+  //     return registrations;
+  //   } catch (e) {
+  //     print("Failed to fetch registrations: $e");
+  //     return [];
+  //   }
+  // }
+  //
 
 
-  Future<List<UserRegistration>> fetchRegistrationsProfile() async {
-    List<UserRegistration> registrations = [];
-
-    try {
-      QuerySnapshot querySnapshot = await _firebaseFirestore
-          .collection('User')
-          .doc('AllRegistrations')
-          .collection("Registration")
-          .get();
-
-      querySnapshot.docs.forEach((doc) {
-        // Make sure to check for null or missing fields
-        UserRegistration registration = UserRegistration(
-          userid: doc['userid'] ?? '', // Replace '' with default value if necessary
-          Name: doc['Name'] ?? '', // Replace '' with default value if necessary
-          Qualification: doc['Qualification'] ?? '', // Replace '' with default value if necessary
-          Gender: doc['Gender'] ?? '', // Replace '' with default value if necessary
-          emaill: doc['emaill'] ?? '', // Replace '' with default value if necessary
-          Number: doc['Number'] ?? '', // Replace '' with default value if necessary
-          imageUrl: doc['imageUrl'] ?? null, // Set imageUrl to null if missing
-        );
-
-        registrations.add(registration);
-      });
-
-      return registrations;
-    } catch (e) {
-      print("Failed to fetch registrations: $e");
-      return [];
-    }
-  }
 
 
 

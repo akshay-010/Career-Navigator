@@ -67,6 +67,12 @@ class _AddFacultiesState extends State<AddFaculties> {
           const SnackBar(content: Text('Faculty added successfully')),
         );
 
+        setState(() {
+          teacherNameController.clear();
+          subjectController.clear();
+          _image = null;
+        });
+
         // Navigate to the CourseListPage
         Navigator.push(
           context,

@@ -194,6 +194,13 @@ class _AddCourseState extends State<AddCourse> {
           SnackBar(content: Text('Course added successfully')),
         );
 
+        setState(() {
+          courseNameController.clear();
+          aboutController.clear();
+          categoery = null;
+          _image = null;
+        });
+
         // Navigate to the CourseListPage
         Navigator.push(
           context,
