@@ -45,7 +45,7 @@ class _CategoeryCourseState extends State<CategoeryCourse> {
       appBar: AppBar(
         backgroundColor: HexColor("#A527BC"),
         title: Text(
-          "Courses",
+          "After ${widget.categoery} Courses",
           style: GoogleFonts.poppins(
               color: Colors.white, fontWeight: FontWeight.w500, fontSize: 22),
         ),
@@ -73,21 +73,27 @@ class _CategoeryCourseState extends State<CategoeryCourse> {
                         final course = courses[index];
                         return Padding(
                             padding: EdgeInsets.all(15.0),
-                            child: ListTile(
-                                leading: CircleAvatar(
-                                    radius: 25,
-                                    backgroundImage:
-                                        NetworkImage(course['imageUrl'])),
-                                title: Padding(
-                                  padding: const EdgeInsets.only(left: 5),
-                                  child: Text(
-                                    course['courseName'],
-                                    style: GoogleFonts.poppins(
-                                        color: Colors.black,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                )));
+                            child: Material(
+                              color: HexColor("65799B").withOpacity(0.5),
+                              borderRadius: BorderRadius.circular(20),
+                              child: ListTile(
+                                contentPadding: EdgeInsets.symmetric(vertical: 12,horizontal: 7),
+                                // tileColor: HexColor("65799B").withOpacity(0.5),
+                                  leading: CircleAvatar(
+                                      radius: 25,
+                                      backgroundImage:
+                                          NetworkImage(course['imageUrl'])),
+                                  title: Padding(
+                                    padding: const EdgeInsets.only(left: 5),
+                                    child: Text(
+                                      course['courseName'],
+                                      style: GoogleFonts.poppins(
+                                          color: Colors.black,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                  )),
+                            ));
                       }),
                 ),
               );

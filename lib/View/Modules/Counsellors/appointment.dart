@@ -25,7 +25,7 @@ class Appointments extends StatelessWidget {
         ],
         backgroundColor: HexColor("#A527BC"),
         title: Text(
-          "Notificationss",
+          "Requests",
           style: GoogleFonts.poppins(
               color: Colors.white, fontWeight: FontWeight.w500, fontSize: 20),
         ),

@@ -10,18 +10,35 @@ import '../../View/Modules/Counsellors/profile.dart';
 import '../../View/Modules/Counsellors/reporting.dart';
 
 class CounsellorService extends ChangeNotifier{
+
+
+  int _selectedIndexxo = 0;
+
+  int get selectedIndexxo => _selectedIndexxo;
+
+  void setIndex(int index) {
+    _selectedIndexxo = index;
+    notifyListeners();
+  }
+
+
+
+
+
+
   var indexNumber = 0;
   List bott = [
     ProfilePage(),
     Appointments(),
-    FeedBack(),
+    // FeedBack(),
     Notificationss(),
-    Reporting()
+    // Reporting()
   ];
   void bottom(int index) {
     indexNumber = index;
     notifyListeners();
   }
+
 
   Future<Map<String,dynamic>?> fetchInstitutionDetails(String ownerId) async {
     try {

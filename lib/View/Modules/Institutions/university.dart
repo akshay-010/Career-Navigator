@@ -70,30 +70,66 @@ class UniversityPage extends StatelessWidget {
                         height: 15,
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 20,right: 20),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                        padding: const EdgeInsets.only(left: 35,right: 35),
+                        child: Table(
+                          border: TableBorder.all(color: Colors.black,borderRadius: BorderRadius.circular(8)),
+                          columnWidths: {
+                            0: FlexColumnWidth(15),
+                            1: FlexColumnWidth(15),
+                          },
                           children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                            TableRow(
                               children: [
-                                Text("Manager Name :"),SizedBox(width: 20,),
-                                Text(institution['managername']?? 'No Name')
-                              ],
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 8),
+                                  child: Text("Manager Name",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w900,fontFamily: GoogleFonts.inter().fontFamily),overflow: TextOverflow.ellipsis,),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 8),
+                                  child: Text(institution['managername']?? 'No Name',style: TextStyle(fontSize: 14,fontWeight: FontWeight.w700,fontFamily: GoogleFonts.inter().fontFamily),overflow: TextOverflow.ellipsis,),
+                                )
+                              ]
                             ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                            TableRow(
                               children: [
-                                Text("Location :"),SizedBox(width: 20,),
-                                Text(institution['location']?? 'No Name')
-                              ],
-                            ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 8),
+                                  child: Text("Location",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w900,fontFamily: GoogleFonts.inter().fontFamily),overflow: TextOverflow.ellipsis,),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 8),
+                                  child: Text(institution['location']?? 'No Name',style: TextStyle(fontSize: 14,fontWeight: FontWeight.w700,fontFamily: GoogleFonts.inter().fontFamily),overflow: TextOverflow.ellipsis,),
+                                )
+                              ]
+                            )
                           ],
                         ),
                       ),
+                      // Padding(
+                      //   padding: const EdgeInsets.only(left: 20,right: 20),
+                      //   child: Column(
+                      //     crossAxisAlignment: CrossAxisAlignment.center,
+                      //     children: [
+                      //       Row(
+                      //         mainAxisAlignment: MainAxisAlignment.center,
+                      //         children: [
+                      //           Text("Manager Name :"),SizedBox(width: 20,),
+                      //           Text(institution['managername']?? 'No Name')
+                      //         ],
+                      //       ),
+                      //       SizedBox(
+                      //         height: 10,
+                      //       ),
+                      //       Row(
+                      //         mainAxisAlignment: MainAxisAlignment.center,
+                      //         children: [
+                      //           Text("Location :"),SizedBox(width: 20,),
+                      //           Text(institution['location']?? 'No Name')
+                      //         ],
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
                       // SizedBox(
                       //   height: height / 4,
                       //   width: width / 1.2,
