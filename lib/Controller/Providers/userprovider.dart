@@ -18,9 +18,6 @@ class UserProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-
-
-
   int _selectedIndexx = 0;
 
   int get selectedIndexx => _selectedIndexx;
@@ -30,40 +27,51 @@ class UserProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-
-
-
-
   bool pass = false;
   void checkbox() {
     pass = !pass;
     notifyListeners();
   }
 
-  var selectedIndex =0;
-  void tab(){
-    selectedIndex =0;
-    notifyListeners();
-  }
-  void tab1(){
-    selectedIndex =1;
-    notifyListeners();
-  }
-  void tab2(){
-    selectedIndex =2;
-    notifyListeners();
-  }
-  void tab3(){
-    selectedIndex =3;
-    notifyListeners();
-  }
-  void tab4(){
-    selectedIndex =4;
-    notifyListeners();
-  }
-  void tab5(){
-    selectedIndex =5;
+  var selectedIndex = 0;
+  void tab() {
+    selectedIndex = 0;
     notifyListeners();
   }
 
+  void tab1() {
+    selectedIndex = 1;
+    notifyListeners();
+  }
+
+  void tab2() {
+    selectedIndex = 2;
+    notifyListeners();
+  }
+
+  void tab3() {
+    selectedIndex = 3;
+    notifyListeners();
+  }
+
+  void tab4() {
+    selectedIndex = 4;
+    notifyListeners();
+  }
+
+  void tab5() {
+    selectedIndex = 5;
+    notifyListeners();
+  }
+
+// counsellor list
+
+  bool _isClicked = false;
+
+  bool get isClicked => _isClicked;
+
+  void toggleCard() {
+    _isClicked = !_isClicked;
+    notifyListeners();
+  }
 }

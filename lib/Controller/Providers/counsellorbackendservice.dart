@@ -67,6 +67,23 @@ class CounsellorService extends ChangeNotifier{
 
 
 
+  Future<List<Map<String, dynamic>>> fetchNotifications() async {
+    try {
+      QuerySnapshot<Map<String, dynamic>> querySnapshot = await FirebaseFirestore
+          .instance
+          .collection('requests')
+          .orderBy('timestamp', descending: true)
+          .get();
+
+      return querySnapshot.docs.map((doc) => doc.data()).toList();
+    } catch (e) {
+      print('Error fetching notifications: $e');
+      return [];
+    }
+  }
+
+
+
 
 
  //  AdminAddCounsellor? adminAddCounsellor;

@@ -228,6 +228,33 @@ class AdminBackend extends ChangeNotifier  {
 
 
 
+    // user module counsellor request
+
+
+  Future<void> addRequestToCounsellor(String counsellorId, String requestMessage, String username, String imageUrl) async {
+    try {
+      await _firebaseFirestore
+          .collection('Admin')
+          .doc('ADMIN')
+          .collection('counselloradd')
+          .doc(counsellorId)
+          .collection('requests')
+          .add({
+        'message': requestMessage,
+        'username' : username,
+        'image' :imageUrl,
+        'timestamp': FieldValue.serverTimestamp(),
+      });
+      print('Request added');
+    } catch (e) {
+      print('Failed to add request: $e');
+    }
+  }
+
+
+
+
+
 
 
 
