@@ -402,6 +402,7 @@ class CounsellorLogin extends StatefulWidget {
 class _CounsellorLoginState extends State<CounsellorLogin> {
   final TextEditingController emailsController = TextEditingController();
   final TextEditingController passwordsController = TextEditingController();
+  bool passwrd = false;
 
   //
   // String _errorMessage = '';
@@ -615,6 +616,8 @@ class _CounsellorLoginState extends State<CounsellorLogin> {
                                           TextFormField(
                                             controller: passwordsController,
                                             keyboardType: TextInputType.text,
+                                            obscureText: !passwrd,
+                                            obscuringCharacter: '-',
                                             decoration: InputDecoration(
                                               contentPadding:
                                               EdgeInsets.symmetric(vertical: 5),
@@ -631,6 +634,11 @@ class _CounsellorLoginState extends State<CounsellorLogin> {
                                                       color: Colors.green)),
                                               prefixIcon: Icon(Icons.lock_outline),
                                               hintText: "Password",
+                                                suffixIcon: IconButton(onPressed: (){
+                                                  setState(() {
+                                                    passwrd=!passwrd;
+                                                  });
+                                                },icon: Icon(passwrd? Icons.visibility: Icons.visibility_off),)
                                             ),
                                           ),
                                           SizedBox(

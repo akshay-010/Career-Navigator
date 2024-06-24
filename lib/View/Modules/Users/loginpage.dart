@@ -28,6 +28,9 @@ class _Login_PageState extends State<Login_Page> with TickerProviderStateMixin {
   var email =TextEditingController();
   var pass = TextEditingController();
   var changee =false;
+  bool passwd = false;
+  bool passdd = false;
+  bool passddoo = false;
 
   var emailll =TextEditingController();
   var password =TextEditingController();
@@ -183,6 +186,8 @@ class _Login_PageState extends State<Login_Page> with TickerProviderStateMixin {
                                           TextFormField(
                                             controller:pass ,
                                             keyboardType: TextInputType.text,
+                                            obscureText: !passwd,
+                                            obscuringCharacter: '-',
                                             decoration: InputDecoration(
                                               contentPadding: const EdgeInsets.symmetric(vertical: 5),
                                               enabledBorder: OutlineInputBorder(
@@ -195,6 +200,12 @@ class _Login_PageState extends State<Login_Page> with TickerProviderStateMixin {
                                               ),
                                               prefixIcon: const Icon(Icons.lock_outline),
                                               hintText: "Password",
+
+                                                suffixIcon: IconButton(onPressed: (){
+                                                  setState(() {
+                                                    passwd=!passwd;
+                                                  });
+                                                },icon: Icon(passwd? Icons.visibility: Icons.visibility_off),)
                                             ),
                                           ),
                                           const SizedBox(height: 2,),
@@ -249,6 +260,8 @@ class _Login_PageState extends State<Login_Page> with TickerProviderStateMixin {
                                           TextFormField(
                                             controller:password ,
                                             keyboardType: TextInputType.text,
+                                            obscureText: !passddoo,
+                                            obscuringCharacter: '-',
                                             decoration: InputDecoration(
                                               contentPadding: const EdgeInsets.symmetric(vertical: 5),
                                               enabledBorder: OutlineInputBorder(
@@ -261,12 +274,19 @@ class _Login_PageState extends State<Login_Page> with TickerProviderStateMixin {
                                               ),
                                               prefixIcon: const Icon(Icons.lock_outline),
                                               hintText: "Password",
+                                                suffixIcon: IconButton(onPressed: (){
+                                                  setState(() {
+                                                    passddoo=!passddoo;
+                                                  });
+                                                },icon: Icon(passddoo? Icons.visibility: Icons.visibility_off),)
                                             ),
                                           ),
                                           const SizedBox(height: 15,),
                                           TextFormField(
                                             controller:cnfmpassword ,
                                             keyboardType: TextInputType.text,
+                                            obscuringCharacter: '-',
+                                            obscureText: !passdd,
                                             decoration: InputDecoration(
                                               contentPadding: const EdgeInsets.symmetric(vertical: 5),
                                               enabledBorder: OutlineInputBorder(
@@ -279,6 +299,12 @@ class _Login_PageState extends State<Login_Page> with TickerProviderStateMixin {
                                               ),
                                               prefixIcon: const Icon(Icons.lock_outline),
                                               hintText: "confirm password",
+
+                                                suffixIcon: IconButton(onPressed: (){
+                                                  setState(() {
+                                                    passdd=!passdd;
+                                                  });
+                                                },icon: Icon(passdd? Icons.visibility: Icons.visibility_off),)
                                             ),
                                           ),
                                         ],),

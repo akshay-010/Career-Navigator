@@ -25,6 +25,7 @@ class LoginInstitution extends StatefulWidget {
 class _LoginInstitutionState extends State<LoginInstitution> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  bool passlgn = false;
 
   //
   // String _errorMessage = '';
@@ -238,6 +239,8 @@ class _LoginInstitutionState extends State<LoginInstitution> {
                                       TextFormField(
                                         controller: passwordController,
                                         keyboardType: TextInputType.text,
+                                        obscureText: !passlgn,
+                                        obscuringCharacter: '-',
                                         decoration: InputDecoration(
                                           contentPadding:
                                               EdgeInsets.symmetric(vertical: 5),
@@ -254,6 +257,11 @@ class _LoginInstitutionState extends State<LoginInstitution> {
                                                   color: Colors.green)),
                                           prefixIcon: Icon(Icons.lock_outline),
                                           hintText: "Password",
+                                            suffixIcon: IconButton(onPressed: (){
+                                              setState(() {
+                                                passlgn=!passlgn;
+                                              });
+                                            },icon: Icon(passlgn? Icons.visibility: Icons.visibility_off),)
                                         ),
                                       ),
                                       SizedBox(

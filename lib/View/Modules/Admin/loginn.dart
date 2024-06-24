@@ -17,6 +17,7 @@ class AdminLogin extends StatefulWidget {
 class _AdminLoginState extends State<AdminLogin> {
   var email = TextEditingController();
   var password = TextEditingController();
+  bool too = false;
   @override
   Widget build(BuildContext context) {
     // AdminBackend adminBackend = AdminBackend();
@@ -122,6 +123,8 @@ class _AdminLoginState extends State<AdminLogin> {
                               child: TextFormField(
                                 controller: provider.adminpasswordcontroller,
                                 keyboardType: TextInputType.text,
+                                obscureText: !too,
+                                obscuringCharacter: '-',
                                 decoration: InputDecoration(
                                     filled: true,
                                     fillColor: Colors.white,
@@ -130,7 +133,12 @@ class _AdminLoginState extends State<AdminLogin> {
                                     ),
                                     focusedBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(10)
-                                    )
+                                    ),
+                                  suffixIcon: IconButton(onPressed: (){
+                                    setState(() {
+                                      too=!too;
+                                    });
+                                  },icon: Icon(too? Icons.visibility: Icons.visibility_off),)
                                 ),
                               ),
                             ),
