@@ -202,6 +202,28 @@ class _ProfileState extends State<Profile> {
                                     ),
                                   ),
                                 ),
+                                // const SizedBox(
+                                //   height: 2,
+                                // ),
+                                // InkWell(
+                                //   onTap: () {
+                                //   },
+                                //   child: ListTile(
+                                //     leading:
+                                //     Image.asset("assets/Vector (10).png"),
+                                //     title: Text(
+                                //       "Settings",
+                                //       style: GoogleFonts.roboto(
+                                //           color: Colors.black,
+                                //           fontSize: 14,
+                                //           fontWeight: FontWeight.w400),
+                                //     ),
+                                //     trailing: Icon(
+                                //       Icons.arrow_forward_ios_outlined,
+                                //       color: HexColor("#A527BC"),
+                                //     ),
+                                //   ),
+                                // ),
                                 const SizedBox(
                                   height: 2,
                                 ),
@@ -237,6 +259,11 @@ class _ProfileState extends State<Profile> {
     );
   }
 }
+
+
+
+
+
 
 //
 // import 'dart:io';

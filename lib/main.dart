@@ -30,6 +30,8 @@ import 'package:careernavigator/View/Modules/Users/profile.dart';
 import 'package:careernavigator/View/Modules/Users/registration.dart';
 import 'package:careernavigator/View/Modules/Users/scholarship.dart';
 import 'package:careernavigator/View/Modules/Users/splashscreen.dart';
+import 'package:careernavigator/View/welcome/splashscreenwlcm.dart';
+import 'package:careernavigator/View/welcome/welcome%20page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -73,7 +75,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: LoginInstitution(),
+        home: AppSplash(),
         debugShowCheckedModeBanner: false,
       ),
     );

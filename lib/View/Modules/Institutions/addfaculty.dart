@@ -8,6 +8,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'allcourses.dart';
+
 class AddFaculties extends StatefulWidget {
   const AddFaculties({super.key});
 
@@ -16,7 +17,6 @@ class AddFaculties extends StatefulWidget {
 }
 
 class _AddFacultiesState extends State<AddFaculties> {
-
   final TextEditingController teacherNameController = TextEditingController();
 
   final TextEditingController subjectController = TextEditingController();
@@ -93,8 +93,6 @@ class _AddFacultiesState extends State<AddFaculties> {
     }
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -111,97 +109,90 @@ class _AddFacultiesState extends State<AddFaculties> {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(25.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(
-                height: 20,
-              ),
-              Text(
-                "Name",
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    fontFamily: GoogleFonts.poppins().fontFamily),
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              TextFormField(
-                controller: teacherNameController,
-                keyboardType: TextInputType.text,
-                decoration: InputDecoration(
-                    isDense: true,
-                    contentPadding: EdgeInsets.symmetric(
-                        vertical: height * 0.02, horizontal: 5),
-                    enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide: BorderSide(color: HexColor("#B49191"))),
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide: BorderSide(color: HexColor("#B49191")))),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Text(
-                "Sbuject name",
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    fontFamily: GoogleFonts.poppins().fontFamily),
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              TextFormField(
-                controller: subjectController,
-                keyboardType: TextInputType.text,
-                decoration: InputDecoration(
-                    isDense: true,
-                    contentPadding: EdgeInsets.symmetric(
-                        vertical: height * 0.02, horizontal: 5),
-                    enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide: BorderSide(color: HexColor("#B49191"))),
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide: BorderSide(color: HexColor("#B49191")))),
-              ),
-        
-              const SizedBox(
-                height: 20,
-              ),
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            const SizedBox(
+              height: 20,
+            ),
+            Text(
+              "Name",
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  fontFamily: GoogleFonts.poppins().fontFamily),
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            TextFormField(
+              controller: teacherNameController,
+              keyboardType: TextInputType.text,
+              decoration: InputDecoration(
+                  isDense: true,
+                  contentPadding: EdgeInsets.symmetric(
+                      vertical: height * 0.02, horizontal: 5),
+                  enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(4),
+                      borderSide: BorderSide(color: HexColor("#B49191"))),
+                  focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(4),
+                      borderSide: BorderSide(color: HexColor("#B49191")))),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Text(
+              "Sbuject name",
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  fontFamily: GoogleFonts.poppins().fontFamily),
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            TextFormField(
+              controller: subjectController,
+              keyboardType: TextInputType.text,
+              decoration: InputDecoration(
+                  isDense: true,
+                  contentPadding: EdgeInsets.symmetric(
+                      vertical: height * 0.02, horizontal: 5),
+                  enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(4),
+                      borderSide: BorderSide(color: HexColor("#B49191"))),
+                  focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(4),
+                      borderSide: BorderSide(color: HexColor("#B49191")))),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
             ElevatedButton(
               onPressed: () {
                 _pickImage();
               },
               child: Text('Pick Image'),
             ),
-            if (_image!= null) ...[
-          const SizedBox(height: 20),
-            Padding(
-            padding: const EdgeInsets.only(left: 23),
-            child: Container(
-            height: 70,
-            width: 70,
-            decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            image: DecorationImage(image:
-            FileImage(File(_image!.path)),
-            fit: BoxFit.cover
-        
-            ), )
-            ),
-            ),
-        
-        
-               const SizedBox(
+            if (_image != null) ...[
+              const SizedBox(height: 20),
+              Padding(
+                padding: const EdgeInsets.only(left: 23),
+                child: Container(
+                    height: 70,
+                    width: 70,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      image: DecorationImage(
+                          image: FileImage(File(_image!.path)),
+                          fit: BoxFit.cover),
+                    )),
+              ),
+              const SizedBox(
                 height: 40,
               ),
-        
               const SizedBox(
                 height: 45,
               ),
@@ -213,9 +204,10 @@ class _AddFacultiesState extends State<AddFaculties> {
                             EdgeInsets.symmetric(horizontal: 2)),
                         shape: MaterialStatePropertyAll(RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(6))),
-                        minimumSize: const MaterialStatePropertyAll(Size(0, 50)),
+                        minimumSize:
+                            const MaterialStatePropertyAll(Size(0, 50)),
                         backgroundColor:
-                        MaterialStatePropertyAll(HexColor("#3568FF"))),
+                            MaterialStatePropertyAll(HexColor("#3568FF"))),
                     onPressed: () {
                       addFaculties();
                     },
@@ -229,8 +221,8 @@ class _AddFacultiesState extends State<AddFaculties> {
                       ),
                     )),
               ),
-            ],]
-          ),
+            ],
+          ]),
         ),
       ),
     );
